@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/grp1" android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_spend"
+            android:icon="@drawable/cart"
+            android:title="@string/spend_item" />
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/format_align_justify"
+            android:title="@string/category_item" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/chart_line"
+            android:title="@string/statistics_item" />
+
+    </group>
+
+    <group android:id="@+id/grp2" android:checkableBehavior="single" >
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/tune"
+                android:title="@string/settings_item"/>
+
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/exit_to_app"
+                android:title="@string/exit_item" />
+   </group>
+
+</menu>

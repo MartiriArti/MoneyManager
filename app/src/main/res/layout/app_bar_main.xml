@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/plus_circle_outline" />
+        android:src="@mipmap/ic_cart_black_48dp" />
 
 </android.support.design.widget.CoordinatorLayout>
 

@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@drawable/side_nav_bar"
+    android:layout_height="160dp"
+    android:background="@drawable/pattern"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="20dp"
+    android:paddingBottom="@dimen/nav_bottom_padding"
+    android:paddingLeft="@dimen/nav_left_padding"
+    android:paddingRight="@dimen/nav_right_padding"
+    android:paddingTop="@dimen/nav_top_padding"
 
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:backgroundTint="@android:color/holo_blue_dark"
     android:weightSum="1">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:paddingTop="12dp"
+        android:paddingTop="@dimen/nav_top_padding"
         android:src="@mipmap/avatar"
         android:adjustViewBounds="true"
         android:layout_weight="0.56" />
@@ -27,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:paddingTop="16dp"
+        android:paddingTop="@dimen/nav_top_padding"
         android:text="@string/user_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

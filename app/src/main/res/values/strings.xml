@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">MoneyTracker</string>
+    <string name="app_name">MoneyManager</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="some_text">Welcome to my app</string>
+    <string name="spend_item">Траты</string>
+    <string name="category_item">Категории</string>
+    <string name="statistics_item">Статистика</string>
+    <string name="settings_item">Настройки</string>
+    <string name="exit_item">Выход</string>
+    <string name="tools_item">Tools</string>
+
+    <string name="user_name">Anton Martishkov</string>
+    <string name="user_mail">my_mail@gmail.com</string>
+
+
 </resources>
+
+

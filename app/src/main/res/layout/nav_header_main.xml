@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="@dimen/drawer_header_layout_height"
     android:background="@drawable/pattern"
-    android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/nav_bottom_padding"
-    android:paddingLeft="@dimen/nav_left_padding"
-    android:paddingRight="@dimen/nav_right_padding"
-    android:paddingTop="@dimen/nav_top_padding"
-
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:weightSum="1">
+    android:paddingTop="@dimen/drawer_status_bar_height"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_top_padding"
+        android:layout_width="@dimen/drawer_header_avatar_sizes"
+        android:layout_height="@dimen/drawer_header_avatar_sizes"
+        android:id="@+id/header_avatar"
+        android:layout_margin="@dimen/drawer_header_spacing_large"
         android:src="@mipmap/avatar"
-        android:adjustViewBounds="true"
-        android:layout_weight="0.56" />
+        android:contentDescription="@string/drawer_user_avatar_description"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:paddingTop="@dimen/nav_top_padding"
-        android:text="@string/user_name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/user_mail" />
+        android:id="@+id/header_username"
+        android:layout_above="@+id/header_email"
+        android:layout_marginLeft="@dimen/drawer_header_spacing_large"
+        android:layout_marginStart="@dimen/drawer_header_spacing_large"
+        android:text="@string/user_name"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_email"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/drawer_header_spacing_large"
+        android:layout_marginStart="@dimen/drawer_header_spacing_large"
+        android:layout_marginBottom="@dimen/drawer_header_spacing_large"
+        android:text="@string/user_mail"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-</LinearLayout>
+</RelativeLayout>

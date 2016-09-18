@@ -16,6 +16,15 @@
     <string name="user_name">Anton Martishkov</string>
     <string name="user_mail">my_mail@gmail.com</string>
 
+    <string name="statistics_splash">Hello, it\'s statistics screen!</string>
+    <string name="settings_splash">Hello, it\'s settings screen!</string>
+    <string name="expenses_snackbar_message">Hello, it\'s snackbar in the expenses fragment!</string>
+    <string name="categories_snackbar_message">Hello, it\'s snackbar in the categories fragment!</string>
+    <string name="drawer_user_avatar_description">Аватар пользователя</string>
+    <string name="nav_drawer_expenses">Траты</string>
+    <string name="nav_drawer_categories">Категории</string>
+    <string name="nav_drawer_statistics">Статистика</string>
+    <string name="nav_drawer_settings">Настройки</string>
 
 </resources>
 

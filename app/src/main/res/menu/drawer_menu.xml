@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/grp1" android:checkableBehavior="single" >
+    <group
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_spend"
+            android:id="@+id/drawer_expenses"
+            android:title="@string/nav_drawer_expenses"
             android:icon="@mipmap/ic_cart_black_48dp"
-            android:title="@string/spend_item" />
+            android:checked="true"/>
         <item
-            android:id="@+id/nav_category"
-            android:icon="@mipmap/ic_format_align_justify_black_48dp"
-            android:title="@string/category_item" />
+            android:id="@+id/drawer_categories"
+            android:title="@string/nav_drawer_categories"
+            android:icon="@mipmap/ic_format_align_justify_black_48dp" />
         <item
-            android:id="@+id/nav_statistics"
-            android:icon="@mipmap/ic_chart_line_black_48dp"
-            android:title="@string/statistics_item" />
-
+            android:id="@+id/drawer_statistics"
+            android:title="@string/nav_drawer_statistics"
+            android:icon="@mipmap/ic_chart_line_black_48dp" />
     </group>
 
     <group android:id="@+id/grp2" android:checkableBehavior="single" >
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@mipmap/ic_tune_black_48dp"
-                android:title="@string/settings_item"/>
+        <item
+            android:id="@+id/drawer_settings"
+            android:icon="@mipmap/ic_tune_black_48dp"
+            android:title="@string/nav_drawer_settings"/>
 
-            <item
-                android:id="@+id/nav_exit"
-                android:icon="@mipmap/ic_exit_to_app_black_48dp"
-                android:title="@string/exit_item" />
-   </group>
-
+        <item
+            android:id="@+id/drawer_exit"
+            android:icon="@mipmap/ic_exit_to_app_black_48dp"
+            android:title="@string/nav_drawer_exit" />
+    </group>
 </menu>

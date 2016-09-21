@@ -23,6 +23,7 @@ public class CategoriesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
+    private FloatingActionButton fab;
 
     @Nullable
     @Override
@@ -34,7 +35,7 @@ public class CategoriesFragment extends Fragment {
         rootLayout = (CoordinatorLayout) rootView.findViewById(R.id.categories_coordinator);
 
         initRecycleView(rootView);
-
+        initFab(rootView);
         return rootView;
     }
 
@@ -43,6 +44,16 @@ public class CategoriesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getCategories());
         recyclerView.setAdapter(categoriesAdapter);
+    }
+
+    private void initFab(View view) {
+        fab = (FloatingActionButton) view.findViewById(R.id.categories_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(rootLayout, R.string.categories_snackbar_message, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private List<Category> getCategories() {

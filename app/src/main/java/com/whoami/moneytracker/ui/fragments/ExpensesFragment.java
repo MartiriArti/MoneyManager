@@ -50,7 +50,7 @@ public class ExpensesFragment extends Fragment{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(rootLayout, R.string.categories_snackbar_message, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(rootLayout, R.string.expenses_snackbar_message, Snackbar.LENGTH_LONG).show();
             }
         });
     }

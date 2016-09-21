@@ -15,4 +15,5 @@
     <dimen name="category_item_category_text_size">20sp</dimen>
     <dimen name="statistics_fragment_splash_text_size">22sp</dimen>
     <dimen name="settings_fragment_splash_text_size">22sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

@@ -12,5 +12,7 @@
     <string name="user_name" translatable="false">Anton Martishkov</string>
     <string name="user_mail" translatable="false">my_mail@gmail.com</string>
     <string name="drawer_user_avatar_description">Avatarka</string>
+    <string name="expenses_snackbar_message">snackbar in the expenses fragment!</string>
+    <string name="categories_snackbar_message">snackbar in the categories fragment!</string>
 
 </resources>

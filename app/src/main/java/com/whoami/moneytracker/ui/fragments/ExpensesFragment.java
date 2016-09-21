@@ -23,6 +23,7 @@ public class ExpensesFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
+    private FloatingActionButton fab;
 
     @Nullable
     @Override
@@ -33,7 +34,7 @@ public class ExpensesFragment extends Fragment{
         rootLayout = (CoordinatorLayout) rootView.findViewById(R.id.expenses_coordinator);
 
         initRecycleView(rootView);
-
+        initFab(rootView);
         return rootView;
     }
 
@@ -44,6 +45,15 @@ public class ExpensesFragment extends Fragment{
         recyclerView.setAdapter(expensesAdapter);
     }
 
+    private void initFab(View view) {
+        fab = (FloatingActionButton) view.findViewById(R.id.expenses_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(rootLayout, R.string.expenses_snackbar_message, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
 
     private List<Expense> getExpenses() {
         List<Expense> expenses = new ArrayList<>();

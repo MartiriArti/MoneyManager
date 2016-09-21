@@ -54,6 +54,7 @@ public class ExpensesFragment extends Fragment{
             }
         });
     }
+    
 
     private List<Expense> getExpenses() {
         List<Expense> expenses = new ArrayList<>();

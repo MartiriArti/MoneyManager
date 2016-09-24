@@ -1,5 +1,6 @@
 package com.whoami.moneytracker.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -15,6 +16,9 @@ import android.view.ViewGroup;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
 import com.whoami.moneytracker.models.Expense;
+import com.whoami.moneytracker.ui.AddExpenseActivity;
+import com.whoami.moneytracker.ui.AddExpenseActivity_;
+import com.whoami.moneytracker.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +54,8 @@ public class ExpensesFragment extends Fragment{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(rootLayout, R.string.expenses_snackbar_message, Snackbar.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), AddExpenseActivity_.class);
+                startActivity(intent);
             }
         });
     }

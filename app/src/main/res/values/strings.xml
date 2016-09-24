@@ -14,5 +14,18 @@
     <string name="drawer_user_avatar_description">Avatarka</string>
     <string name="expenses_snackbar_message">snackbar in the expenses fragment!</string>
     <string name="categories_snackbar_message">snackbar in the categories fragment!</string>
+    <string name="add_expenses_editText_expense">Введите сумму</string>
+    <string name="add_expenses_editText_description">Введите описание покупки</string>
+    <string name="add_expenses_editText_date">Введите дату покупки</string>
+    <string name="btnCancel">Отмена</string>
+    <string name="btnApply">Принять</string>
 
+        <string-array name="categories">
+            <item>ЖКХ</item>
+            <item>Учеба</item>
+            <item>Лекарства</item>
+            <item>Кафе</item>
+            <item>Кино</item>
+            <item>Еда</item>
+        </string-array>
 </resources>

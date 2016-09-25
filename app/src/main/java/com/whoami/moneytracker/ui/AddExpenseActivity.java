@@ -24,11 +24,13 @@ public class AddExpenseActivity extends AppCompatActivity {
     @ViewById(R.id.date)
     EditText date;
     @ViewById(R.id.categories)
-    Spinner categories;
+    Spinner spinnerCategories;
     @ViewById(R.id.btnCancel)
     Button btnCancel;
     @ViewById(R.id.btnApply)
     Button btnApply;
+    
+    String string;
 
     @Click(R.id.btnCancel)
     void btnCancelIsClicked() {
@@ -38,18 +40,21 @@ public class AddExpenseActivity extends AppCompatActivity {
     @Click(R.id.btnApply)
     void btnApplyIsClicked() {
 
-        if ((expense.getText().length() & date.getText().length()) > 0) {
+        if (((expense.getText().length() > 0) & (date.getText().length()) > 0) & (string.equals("Выберите категорию"))){
             btnApply.setEnabled(true);
             Toast.makeText(getBaseContext(), "Apply is Clicked", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Не все поля заполнены!", Toast.LENGTH_SHORT).show();
         }
     }
 
     @AfterViews
     void spinnerClicked() {
-        categories.setPrompt("Выберите категорию");
+     string = String.valueOf(spinnerCategories.getSelectedItem());
         ArrayAdapter<?> adapter =
                 ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categories.setAdapter(adapter);
+        spinnerCategories.setAdapter(adapter);
     }
+
 }

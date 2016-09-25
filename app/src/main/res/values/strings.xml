@@ -22,6 +22,7 @@
     <string name="spinner_title">Select Category</string>
 
         <string-array name="categories">
+            <item>Выберите категорию</item>
             <item>Развлечения</item>
             <item>Учеба</item>
             <item>Лекарства</item>

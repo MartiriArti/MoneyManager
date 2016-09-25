@@ -19,9 +19,10 @@
     <string name="add_expenses_editText_date">Введите дату покупки</string>
     <string name="btnCancel">Отмена</string>
     <string name="btnApply">Принять</string>
+    <string name="spinner_title">Select Category</string>
 
         <string-array name="categories">
-            <item>ЖКХ</item>
+            <item>Развлечения</item>
             <item>Учеба</item>
             <item>Лекарства</item>
             <item>Кафе</item>

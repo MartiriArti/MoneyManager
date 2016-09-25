@@ -8,16 +8,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.whoami.moneytracker.ui.MainActivity"
+
+        <activity android:name=".ui.SplashScreenActivity_"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.MainActivity"
+            android:parentActivityName=".ui.SplashScreenActivity_"/>
         <activity android:name=".ui.AddExpenseActivity_"
             android:parentActivityName=".ui.MainActivity"/>
+
     </application>
 
 </manifest>

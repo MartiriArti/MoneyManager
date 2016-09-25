@@ -21,7 +21,6 @@ import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;

@@ -16,4 +16,5 @@
     <dimen name="statistics_fragment_splash_text_size">22sp</dimen>
     <dimen name="settings_fragment_splash_text_size">22sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_in_add_expense">30dp</dimen>
 </resources>

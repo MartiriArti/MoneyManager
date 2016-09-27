@@ -31,7 +31,10 @@ public class AddExpenseActivity extends AppCompatActivity {
     Button btnApply;
     
     String string;
-
+    @AfterViews
+    void load(){
+        date.setText(R.string.date);
+    }
     @Click(R.id.btnCancel)
     void btnCancelIsClicked() {
         finish();
@@ -40,11 +43,11 @@ public class AddExpenseActivity extends AppCompatActivity {
     @Click(R.id.btnApply)
     void btnApplyIsClicked() {
 
-        if (((expense.getText().length() > 0) & (date.getText().length()) > 0) & (string.equals("Выберите категорию"))){
+        if (((expense.getText().length() > 0) & (date.getText().length()) > 0) & (string.equals(R.string.select_categories))){
             btnApply.setEnabled(true);
-            Toast.makeText(getBaseContext(), "Apply is Clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.apply_is_true, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Не все поля заполнены!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.add_expense_apply_not_write, Toast.LENGTH_SHORT).show();
         }
     }
 

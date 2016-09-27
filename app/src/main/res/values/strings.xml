@@ -21,6 +21,11 @@
     <string name="btnApply">Принять</string>
     <string name="spinner_title">Select Category</string>
     <string name="logo_desc">app logo</string>
+    <string name="add_expense_apply_not_write">Не все поля заполнены!</string>
+    <string name="apply_is_true">Apply is Clicked</string>
+    <string name="select_categories">Выберите категорию</string>
+
+    <string name="date">22.09.2016</string>
 
         <string-array name="categories">
             <item>Выберите категорию</item>

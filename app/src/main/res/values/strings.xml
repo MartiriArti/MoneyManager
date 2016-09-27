@@ -20,6 +20,7 @@
     <string name="btnCancel">Отмена</string>
     <string name="btnApply">Принять</string>
     <string name="spinner_title">Select Category</string>
+    <string name="logo_desc">app logo</string>
 
         <string-array name="categories">
             <item>Выберите категорию</item>

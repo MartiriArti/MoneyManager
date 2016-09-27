@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#205818</color>
     <color name="colorAccent">#ca0f22</color>
     <color name="back">#ffffff</color>
+    <color name="apply">#ca288f21</color>
+    <color name="cancel">#d2af2b2b</color>
+    <color name="black">#000000</color>
+    <color name="splash_dackground">#11615f</color>
 </resources>

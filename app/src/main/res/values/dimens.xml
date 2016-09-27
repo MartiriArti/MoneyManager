@@ -1,4 +1,5 @@
 <resources>
+    <dimen name="default_layout_padding">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="drawer_header_layout_height">172dp</dimen>
@@ -16,4 +17,7 @@
     <dimen name="statistics_fragment_splash_text_size">22sp</dimen>
     <dimen name="settings_fragment_splash_text_size">22sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_in_add_expense">30dp</dimen>
+    <dimen name="splash_image_size">200dp</dimen>
+    <dimen name="splash_text_size">40sp</dimen>
 </resources>

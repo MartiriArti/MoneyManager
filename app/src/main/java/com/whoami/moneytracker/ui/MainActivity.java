@@ -19,77 +19,144 @@ import com.whoami.moneytracker.ui.fragments.ExpensesFragment;
 import com.whoami.moneytracker.ui.fragments.SettingsFragment;
 import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle toggle;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+@EActivity(R.layout.activity_main)
+public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+
+    @ViewById(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @ViewById(R.id.toolbar)
+    Toolbar toolbar;
+
+    @ViewById(R.id.navigation_view)
+    NavigationView navigationView;
+
+    @StringRes(R.string.nav_drawer_expenses)
+    String expensesTitle;
+
+    @StringRes(R.string.nav_drawer_categories)
+    String categoriesTitle;
+
+    @StringRes(R.string.nav_drawer_statistics)
+    String statisticsTitle;
+
+    @StringRes(R.string.nav_drawer_settings)
+    String settingsTitle;
+
+    @InstanceState
+    String toolbarTitle;
+
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setActionBar();
-        setDrawerLayout();
-
         if (savedInstanceState == null) {
             replaceFragment(new ExpensesFragment());
         }
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_container);
-                if (f != null) {
-                    updateToolbarTitle(f);
-                }
-            }
-        });
+    }
 
+
+    @AfterViews
+    void setupViews() {
+        setActionBar();
+        setDrawerLayout();
+        setFragmentManager();
     }
 
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+        } else if (fragmentManager.getBackStackEntryCount() == 1) {
             finish();
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        if (drawerLayout != null) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+    public void onBackStackChanged() {
+        Fragment f = fragmentManager
+                .findFragmentById(R.id.main_container);
+
+        if (f != null) {
+            setToolbarTitle(f.getClass().getName());
         }
-        switch (item.getItemId()) {
-            case R.id.drawer_expenses:
-                ExpensesFragment ef = new ExpensesFragment();
-                replaceFragment(ef);
-                break;
-            case R.id.drawer_categories:
-                CategoriesFragment cf = new CategoriesFragment();
-                replaceFragment(cf);
-                break;
-            case R.id.drawer_statistics:
-                StatisticsFragment statf = new StatisticsFragment();
-                replaceFragment(statf);
-                break;
-            case R.id.drawer_settings:
-                SettingsFragment setf = new SettingsFragment();
-                replaceFragment(setf);
-                break;
+    }
+
+    private void onNavigationItemSelected() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                if (drawerLayout != null) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }
+                int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.drawer_expenses:
+                        replaceFragment(new ExpensesFragment());
+                        break;
+                    case R.id.drawer_categories:
+                        replaceFragment(new CategoriesFragment());
+                        break;
+                    case R.id.drawer_statistics:
+                        replaceFragment(new StatisticsFragment());
+                        break;
+                    case R.id.drawer_settings:
+                        replaceFragment(new SettingsFragment());
+                        break;
+                    case R.id.drawer_exit:
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    private void setToolbarTitle(String backStackEntryName) {
+        if (backStackEntryName.equals(ExpensesFragment.class.getName())) {
+            setTitle(expensesTitle);
+            toolbarTitle = expensesTitle;
+            navigationView.setCheckedItem(R.id.drawer_expenses);
+        } else if (backStackEntryName.equals(CategoriesFragment.class.getName())) {
+            setTitle(categoriesTitle);
+            toolbarTitle = categoriesTitle;
+            navigationView.setCheckedItem(R.id.drawer_categories);
+        } else if (backStackEntryName.equals(SettingsFragment.class.getName())) {
+            setTitle(settingsTitle);
+            toolbarTitle = settingsTitle;
+            navigationView.setCheckedItem(R.id.drawer_settings);
+        } else {
+            setTitle(statisticsTitle);
+            toolbarTitle = statisticsTitle;
+            navigationView.setCheckedItem(R.id.drawer_statistics);
         }
-        return true;
+    }
+
+    private void setDrawerLayout() {
+        onNavigationItemSelected();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout
+                , toolbar
+                , R.string.navigation_drawer_open
+                , R.string.navigation_drawer_close);
+        toggle.syncState();
+        drawerLayout.addDrawerListener(toggle);
+        if (toolbarTitle != null)
+            setTitle(toolbarTitle);
     }
 
     private void setActionBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -97,50 +164,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void setDrawerLayout() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(this);
-        setTitle(getString(R.string.app_name));
-    }
-
-
-
     private void replaceFragment(Fragment fragment) {
         String backStackName = fragment.getClass().getName();
 
-        FragmentManager manager = getSupportFragmentManager();
-        boolean fragmentPopped = manager.popBackStackImmediate(backStackName, 0);
+        boolean isFragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
 
-        if (! fragmentPopped && manager.findFragmentByTag(backStackName) == null) {
-            FragmentTransaction ft = manager.beginTransaction();
-            ft.replace(R.id.main_container, fragment, backStackName);
-            ft.addToBackStack(backStackName);
-            ft.commit();
+        if (!isFragmentPopped && fragmentManager.findFragmentByTag(backStackName) == null) {
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.main_container, fragment, backStackName);
+            transaction.addToBackStack(backStackName);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.commit();
+
         }
     }
 
-    private void updateToolbarTitle(Fragment fragment){
-        String fragmentClassName = fragment.getClass().getName();
-
-        if (fragmentClassName.equals(ExpensesFragment.class.getName())) {
-            setTitle(getString(R.string.nav_drawer_expenses));
-            navigationView.setCheckedItem(R.id.drawer_expenses);
-        } else if (fragmentClassName.equals(CategoriesFragment.class.getName())) {
-            setTitle(getString(R.string.nav_drawer_categories));
-            navigationView.setCheckedItem(R.id.drawer_categories);
-        } else if (fragmentClassName.equals(StatisticsFragment.class.getName())) {
-            setTitle(getString(R.string.nav_drawer_statistics));
-            navigationView.setCheckedItem(R.id.drawer_statistics);
-        } else if (fragmentClassName.equals(SettingsFragment.class.getName())) {
-            setTitle(getString(R.string.nav_drawer_settings));
-            navigationView.setCheckedItem(R.id.drawer_settings);
-        }
+    private void setFragmentManager() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(this);
     }
 
 }

@@ -14,6 +14,9 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @EActivity(R.layout.add_expense_activity)
 public class AddExpenseActivity extends AppCompatActivity {
 
@@ -29,11 +32,13 @@ public class AddExpenseActivity extends AppCompatActivity {
     Button btnCancel;
     @ViewById(R.id.btnApply)
     Button btnApply;
-    
+    SimpleDateFormat sdf;
     String string;
     @AfterViews
     void load(){
-        date.setText(R.string.date);
+        sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String currentDateandTime = sdf.format(new Date());
+        date.setText(currentDateandTime);
     }
     @Click(R.id.btnCancel)
     void btnCancelIsClicked() {

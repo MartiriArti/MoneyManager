@@ -21,6 +21,7 @@ import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
@@ -53,23 +54,20 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     String toolbarTitle;
 
     private FragmentManager fragmentManager;
+    public Bundle savedInstanceState;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    void preLoad() {
+        setActionBar();
+        setDrawerLayout();
 
         if (savedInstanceState == null) {
             replaceFragment(new ExpensesFragment());
         }
 
-    }
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(this);
 
-
-    @AfterViews
-    void setupViews() {
-        setActionBar();
-        setDrawerLayout();
-        setFragmentManager();
     }
 
     @Override
@@ -179,9 +177,5 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         }
     }
 
-    private void setFragmentManager() {
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.addOnBackStackChangedListener(this);
-    }
 
 }

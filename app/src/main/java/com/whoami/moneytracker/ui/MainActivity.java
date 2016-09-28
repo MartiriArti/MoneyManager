@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
             replaceFragment(new ExpensesFragment());

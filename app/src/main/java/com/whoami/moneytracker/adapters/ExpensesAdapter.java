@@ -7,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.whoami.moneytracker.R;
+import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.models.Expense;
 
 import java.util.List;
 
 public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ExpensesHolder>{
 
-    private List<Expense> expenseList;
+    private List<ExpenseEntity> expenseList;
 
-    public ExpensesAdapter(List<Expense> expenseList) {
+    public ExpensesAdapter(List<ExpenseEntity> expenseList) {
         this.expenseList = expenseList;
     }
 
@@ -28,8 +29,8 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
 
     @Override
     public void onBindViewHolder(ExpensesHolder holder, int position) {
-        Expense expense = expenseList.get(position);
-        holder.description.setText(expense.description);
+        ExpenseEntity expense = expenseList.get(position);
+        holder.description.setText(expense.name);
         holder.price.setText(expense.price);
     }
 

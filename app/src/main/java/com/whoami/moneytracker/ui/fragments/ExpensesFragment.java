@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,36 +17,45 @@ import android.view.ViewGroup;
 
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
-import com.whoami.moneytracker.models.Expense;
+import com.whoami.moneytracker.database.CategoryEntity;
+import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.ui.AddExpenseActivity_;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-public class ExpensesFragment extends Fragment{
+public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ExpenseEntity>>{
+
+    private final int LOADER_ID = 1;
 
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
     private FloatingActionButton fab;
+    public SimpleDateFormat sdf;
+    public String currentDateandTime;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.expenses_fragment, container, false);
 
+        sdf = new SimpleDateFormat("dd.MM.yyyy");
+        currentDateandTime = sdf.format(new Date());
+
         getActivity().setTitle(R.string.nav_drawer_expenses);
         rootLayout = (CoordinatorLayout) rootView.findViewById(R.id.expenses_coordinator);
 
         initRecycleView(rootView);
         initFab(rootView);
+        genExpenses();
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
         return rootView;
     }
 
     private void initRecycleView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.list_of_expenses);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ExpensesAdapter expensesAdapter = new ExpensesAdapter(getExpenses());
-        recyclerView.setAdapter(expensesAdapter);
     }
 
     private void initFab(View view) {
@@ -57,29 +69,38 @@ public class ExpensesFragment extends Fragment{
         });
     }
 
-    private List<Expense> getExpenses() {
-        List<Expense> expenses = new ArrayList<>();
-        expenses.add(new Expense("Кино", "150"));
-        expenses.add(new Expense("Кафе", "140"));
-        expenses.add(new Expense("Одежда", "750"));
-        expenses.add(new Expense("ЖКХ", "833"));
-        expenses.add(new Expense("Мак", "140"));
-        expenses.add(new Expense("Учебники", "200"));
-        expenses.add(new Expense("Кафе", "120"));
-        expenses.add(new Expense("Кино", "150"));
-        expenses.add(new Expense("Кафе", "140"));
-        expenses.add(new Expense("Одежда", "750"));
-        expenses.add(new Expense("ЖКХ", "833"));
-        expenses.add(new Expense("Мак", "140"));
-        expenses.add(new Expense("Учебники", "200"));
-        expenses.add(new Expense("Кафе", "120"));
-        expenses.add(new Expense("Кино", "150"));
-        expenses.add(new Expense("Кафе", "140"));
-        expenses.add(new Expense("Одежда", "750"));
-        expenses.add(new Expense("ЖКХ", "833"));
-        expenses.add(new Expense("Мак", "140"));
-        expenses.add(new Expense("Учебники", "200"));
-        expenses.add(new Expense("Кафе", "120"));
-        return expenses;
+    @Override
+    public Loader<List<ExpenseEntity>> onCreateLoader(int id, Bundle args) {
+        final AsyncTaskLoader<List<ExpenseEntity>> loader = new AsyncTaskLoader<List<ExpenseEntity>>(getActivity()) {
+            @Override
+            public List<ExpenseEntity> loadInBackground() {
+                return ExpenseEntity.selectAll();
+            }
+        };
+        loader.forceLoad();
+        return loader;
     }
+
+    @Override
+    public void onLoadFinished(Loader<List<ExpenseEntity>> loader, List<ExpenseEntity> data) {
+        recyclerView.setAdapter(new ExpensesAdapter(data));
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
+
+    }
+
+    private void genExpenses() {
+        ExpenseEntity expenseEntity = new ExpenseEntity();
+        expenseEntity.setName("Water");
+        expenseEntity.setPrice("123");
+        expenseEntity.setDate(currentDateandTime);
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Products");
+        categoryEntity.save();
+        expenseEntity.setCategory(categoryEntity);
+        expenseEntity.save();
+    }
+
 }

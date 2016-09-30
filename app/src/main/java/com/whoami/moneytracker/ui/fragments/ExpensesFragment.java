@@ -17,38 +17,29 @@ import android.view.ViewGroup;
 
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
-import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.ui.AddExpenseActivity_;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ExpenseEntity>>{
+public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ExpenseEntity>> {
 
     private final int LOADER_ID = 1;
 
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
     private FloatingActionButton fab;
-    public SimpleDateFormat sdf;
-    public String currentDateandTime;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.expenses_fragment, container, false);
 
-        sdf = new SimpleDateFormat("dd.MM.yyyy");
-        currentDateandTime = sdf.format(new Date());
-
         getActivity().setTitle(R.string.nav_drawer_expenses);
         rootLayout = (CoordinatorLayout) rootView.findViewById(R.id.expenses_coordinator);
 
         initRecycleView(rootView);
         initFab(rootView);
-        genExpenses();
         getLoaderManager().restartLoader(LOADER_ID, null, this);
         return rootView;
     }
@@ -89,18 +80,6 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
 
-    }
-
-    private void genExpenses() {
-        ExpenseEntity expenseEntity = new ExpenseEntity();
-        expenseEntity.setName("Water");
-        expenseEntity.setPrice("123");
-        expenseEntity.setDate(currentDateandTime);
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setName("Products");
-        categoryEntity.save();
-        expenseEntity.setCategory(categoryEntity);
-        expenseEntity.save();
     }
 
 }

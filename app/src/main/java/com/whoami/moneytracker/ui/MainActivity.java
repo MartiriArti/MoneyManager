@@ -1,6 +1,5 @@
 package com.whoami.moneytracker.ui;
 
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.whoami.moneytracker.R;
+import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.ui.fragments.CategoriesFragment;
 import com.whoami.moneytracker.ui.fragments.ExpensesFragment;
 import com.whoami.moneytracker.ui.fragments.SettingsFragment;
@@ -21,7 +21,6 @@ import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
@@ -52,23 +51,45 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     @InstanceState
     String toolbarTitle;
-
+    private CategoryEntity categoryEntity;
     private FragmentManager fragmentManager;
-    public Bundle savedInstanceState;
 
     @AfterViews
     void preLoad() {
         setActionBar();
         setDrawerLayout();
 
-        if (savedInstanceState == null) {
-            replaceFragment(new ExpensesFragment());
-        }
-
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
+        replaceFragment(new ExpensesFragment());
 
+        if(CategoryEntity.selectAll().size() == 0){
+            genCategory();}
     }
+
+
+    public void genCategory() {
+        categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Еда");
+        categoryEntity.save();
+        categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Развлечения");
+        categoryEntity.save();
+        categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Спорт");
+        categoryEntity.save();
+        categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Лекарства");
+        categoryEntity.save();
+        categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Книги");
+        categoryEntity.save();
+        categoryEntity = new CategoryEntity();
+        categoryEntity.setName("Досуг");
+        categoryEntity.save();
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -164,18 +185,16 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     private void replaceFragment(Fragment fragment) {
         String backStackName = fragment.getClass().getName();
 
-        boolean isFragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
+       boolean isFragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
 
-        if (!isFragmentPopped && fragmentManager.findFragmentByTag(backStackName) == null) {
+       if (!isFragmentPopped && fragmentManager.findFragmentByTag(backStackName) == null) {
 
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.main_container, fragment, backStackName);
-            transaction.addToBackStack(backStackName);
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            transaction.commit();
-
-        }
+           FragmentTransaction transaction = fragmentManager.beginTransaction();
+           transaction.replace(R.id.main_container, fragment, backStackName);
+           transaction.addToBackStack(backStackName);
+           transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+           transaction.commit();
+       }
     }
-
-
 }
+

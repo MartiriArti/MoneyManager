@@ -6,6 +6,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,13 +17,14 @@ import android.view.ViewGroup;
 
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.CategoriesAdapter;
-import com.whoami.moneytracker.models.Category;
+import com.whoami.moneytracker.database.CategoryEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesFragment extends Fragment {
 
+public class CategoriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<CategoryEntity>> {
+
+    private final int LOADER_ID = 1;
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
     private FloatingActionButton fab;
@@ -34,6 +38,7 @@ public class CategoriesFragment extends Fragment {
 
         rootLayout = (CoordinatorLayout) rootView.findViewById(R.id.categories_coordinator);
 
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
         initRecycleView(rootView);
         initFab(rootView);
         return rootView;
@@ -42,8 +47,6 @@ public class CategoriesFragment extends Fragment {
     private void initRecycleView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.list_of_categories);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getCategories());
-        recyclerView.setAdapter(categoriesAdapter);
     }
 
     private void initFab(View view) {
@@ -56,15 +59,26 @@ public class CategoriesFragment extends Fragment {
         });
     }
 
-    private List<Category> getCategories() {
-        List<Category> categories = new ArrayList<>();
-        categories.add(new Category("Учеба"));
-        categories.add(new Category("Лекарства"));
-        categories.add(new Category("Еда"));
-        categories.add(new Category("ЖКХ"));
-        categories.add(new Category("Кафе"));
-        categories.add(new Category("Развлечения"));
-        categories.add(new Category("Отдых"));
-        return categories;
+    @Override
+    public Loader<List<CategoryEntity>> onCreateLoader(int id, Bundle args) {
+        final AsyncTaskLoader<List<CategoryEntity>> loader = new AsyncTaskLoader<List<CategoryEntity>>(getActivity()) {
+            @Override
+            public List<CategoryEntity> loadInBackground() {
+                return CategoryEntity.selectAll();
+            }
+        };
+        loader.forceLoad();
+        return loader;
     }
+
+    @Override
+    public void onLoadFinished(Loader<List<CategoryEntity>> loader, List<CategoryEntity> data) {
+        recyclerView.setAdapter(new CategoriesAdapter(data));
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<CategoryEntity>> loader) {
+
+    }
+
 }

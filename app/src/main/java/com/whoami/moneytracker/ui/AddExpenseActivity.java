@@ -48,11 +48,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     @AfterViews
     void load() {
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            setTitle("Добавить трату");
-        }
+
 
         sdf = new SimpleDateFormat("dd.MM.yyyy");
         String currentDateandTime = sdf.format(new Date());
@@ -72,7 +68,6 @@ public class AddExpenseActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @OptionsItem(R.id.home)

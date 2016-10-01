@@ -47,7 +47,8 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onResume() {
         super.onResume();
-        loadExpenses();
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+     //   loadExpenses();
     }
 
     private void initRecycleView(View view) {
@@ -87,7 +88,7 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
 
     }
-
+/*
     private void loadExpenses() {
         getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<ExpenseEntity>>() {
             @Override
@@ -113,5 +114,5 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
             }
         });
     }
-
+*/
 }

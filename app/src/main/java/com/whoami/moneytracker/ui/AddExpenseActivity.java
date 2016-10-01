@@ -48,7 +48,6 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     @AfterViews
     void load() {
-
         sdf = new SimpleDateFormat("dd.MM.yyyy");
         String currentDateandTime = sdf.format(new Date());
         date.setText(currentDateandTime);
@@ -106,6 +105,4 @@ public class AddExpenseActivity extends AppCompatActivity {
     private List<CategoryEntity> getDataList() {
         return new Select().from(CategoryEntity.class).execute();
     }
-
-
 }

@@ -44,6 +44,12 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadExpenses();
+    }
+
     private void initRecycleView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.list_of_expenses);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -80,6 +86,32 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
 
+    }
+
+    private void loadExpenses() {
+        getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<ExpenseEntity>>() {
+            @Override
+            public Loader<List<ExpenseEntity>> onCreateLoader(int id, Bundle args) {
+                final AsyncTaskLoader<List<ExpenseEntity>> loader = new AsyncTaskLoader<List<ExpenseEntity>>(getActivity()) {
+                    @Override
+                    public List<ExpenseEntity> loadInBackground() {
+                        return ExpenseEntity.selectAll();
+                    }
+                };
+                loader.forceLoad();
+                return loader;
+            }
+
+            @Override
+            public void onLoadFinished(Loader<List<ExpenseEntity>> loader, List<ExpenseEntity> data) {
+                recyclerView.setAdapter(new ExpensesAdapter(data));
+            }
+
+            @Override
+            public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
+
+            }
+        });
     }
 
 }

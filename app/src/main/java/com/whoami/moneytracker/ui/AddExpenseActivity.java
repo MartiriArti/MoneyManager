@@ -49,7 +49,6 @@ public class AddExpenseActivity extends AppCompatActivity {
     @AfterViews
     void load() {
 
-
         sdf = new SimpleDateFormat("dd.MM.yyyy");
         String currentDateandTime = sdf.format(new Date());
         date.setText(currentDateandTime);

@@ -24,6 +24,7 @@
     <string name="add_expense_apply_not_write">Не все поля заполнены!</string>
     <string name="apply_is_true">Сохранено</string>
     <string name="select_categories">Выберите категорию</string>
+    <string name="search_title">Поиск</string>
 
         <string-array name="categories">
             <item>Развлечения</item>

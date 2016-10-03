@@ -12,23 +12,36 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
 import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.ui.AddExpenseActivity_;
 
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.api.BackgroundExecutor;
+
 import java.util.List;
+@EFragment
+@OptionsMenu(R.menu.menu_search)
+public class ExpensesFragment extends Fragment{
 
-public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<ExpenseEntity>> {
-
-    private final int LOADER_ID = 1;
+    private static final String SEARCH_QUERY_ID = "search_query_id";
 
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
-    private FloatingActionButton fab;
+    @ViewById(R.id.expenses_fab)
+    FloatingActionButton fab;
+
+    SearchView searchView;
 
     @Nullable
     @Override
@@ -40,15 +53,40 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
 
         initRecycleView(rootView);
         initFab(rootView);
-        getLoaderManager().restartLoader(LOADER_ID, null, this);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_search, menu);
+        searchView = (SearchView) menu.findItem(R.id.search_action).getActionView();
+        searchView.setQueryHint(getString(R.string.search_title));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                BackgroundExecutor.cancelAll(SEARCH_QUERY_ID, true);
+                queryExpenses(newText);
+                return false;
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getLoaderManager().restartLoader(LOADER_ID, null, this);
-     //   loadExpenses();
+        loadExpenses("");
     }
 
     private void initRecycleView(View view) {
@@ -66,37 +104,19 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
             }
         });
     }
-
-    @Override
-    public Loader<List<ExpenseEntity>> onCreateLoader(int id, Bundle args) {
-        final AsyncTaskLoader<List<ExpenseEntity>> loader = new AsyncTaskLoader<List<ExpenseEntity>>(getActivity()) {
-            @Override
-            public List<ExpenseEntity> loadInBackground() {
-                return ExpenseEntity.selectAll();
-            }
-        };
-        loader.forceLoad();
-        return loader;
+    @Background(delay = 600, id = SEARCH_QUERY_ID)
+    void queryExpenses(String query){
+        loadExpenses(query);
     }
 
-    @Override
-    public void onLoadFinished(Loader<List<ExpenseEntity>> loader, List<ExpenseEntity> data) {
-        recyclerView.setAdapter(new ExpensesAdapter(data));
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
-
-    }
-/*
-    private void loadExpenses() {
+    private void loadExpenses(final String query) {
         getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<ExpenseEntity>>() {
             @Override
             public Loader<List<ExpenseEntity>> onCreateLoader(int id, Bundle args) {
                 final AsyncTaskLoader<List<ExpenseEntity>> loader = new AsyncTaskLoader<List<ExpenseEntity>>(getActivity()) {
                     @Override
                     public List<ExpenseEntity> loadInBackground() {
-                        return ExpenseEntity.selectAll();
+                        return ExpenseEntity.selectAll(query);
                     }
                 };
                 loader.forceLoad();
@@ -114,5 +134,4 @@ public class ExpensesFragment extends Fragment implements LoaderManager.LoaderCa
             }
         });
     }
-*/
 }

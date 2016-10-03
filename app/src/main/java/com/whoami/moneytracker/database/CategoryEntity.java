@@ -22,6 +22,10 @@ public class CategoryEntity extends Model {
         this.name = name;
     }
 
+    public List<ExpenseEntity> expenses() {
+        return getMany(ExpenseEntity.class, "category");
+    }
+
     public String getName() {
         return name;
     }
@@ -30,8 +34,23 @@ public class CategoryEntity extends Model {
         this.name = name;
     }
 
+
     public static List<CategoryEntity> selectAll(){
-        return new Select().from(CategoryEntity.class).execute();
+        return new Select()
+                .from(CategoryEntity.class)
+                .execute();
     }
+
+
+  /*  @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "expenses")
+    public List<Expenses> getExpenses(){
+        if (expenses == null || expenses.isEmpty()){
+            expenses = SQLite.select()
+                    .from(Expenses.class)
+                    .where(Expenses_Table.category_id.eq(id))
+                    .queryList();
+        }
+        return expenses;
+    }*/
 
 }

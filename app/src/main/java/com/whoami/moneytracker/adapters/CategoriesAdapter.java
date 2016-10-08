@@ -6,17 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.whoami.moneytracker.R;
-import com.whoami.moneytracker.models.Category;
+import com.whoami.moneytracker.database.CategoryEntity;
 
 import java.util.List;
 
+
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesHolder> {
 
-    private List<Category> categories;
+    private List<CategoryEntity> categories;
 
-    public CategoriesAdapter(List<Category> categories) {
+    public CategoriesAdapter(List<CategoryEntity> categories) {
         this.categories = categories;
     }
 
@@ -29,7 +29,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(CategoriesHolder holder, int position) {
-        Category category = categories.get(position);
+        CategoryEntity category = categories.get(position);
         holder.name.setText(category.getName());
     }
 

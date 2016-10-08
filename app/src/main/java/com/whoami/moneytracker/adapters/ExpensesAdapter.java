@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.whoami.moneytracker.R;
-import com.whoami.moneytracker.models.Expense;
+import com.whoami.moneytracker.database.ExpenseEntity;
 
 import java.util.List;
 
-public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ExpensesHolder>{
+public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ExpensesHolder> {
 
-    private List<Expense> expenseList;
+    private List<ExpenseEntity> expenseList;
 
-    public ExpensesAdapter(List<Expense> expenseList) {
+    public ExpensesAdapter(List<ExpenseEntity> expenseList) {
         this.expenseList = expenseList;
     }
 
@@ -28,8 +28,8 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
 
     @Override
     public void onBindViewHolder(ExpensesHolder holder, int position) {
-        Expense expense = expenseList.get(position);
-        holder.description.setText(expense.description);
+        ExpenseEntity expense = expenseList.get(position);
+        holder.name.setText(expense.name);
         holder.price.setText(expense.price);
     }
 
@@ -40,12 +40,12 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
 
     class ExpensesHolder extends RecyclerView.ViewHolder {
 
-        public TextView description;
+        public TextView name;
         public TextView price;
 
         public ExpensesHolder(View itemView) {
             super(itemView);
-            description = (TextView) itemView.findViewById(R.id.expense_description);
+            name = (TextView) itemView.findViewById(R.id.expense_description);
             price = (TextView) itemView.findViewById(R.id.expense_price);
         }
     }

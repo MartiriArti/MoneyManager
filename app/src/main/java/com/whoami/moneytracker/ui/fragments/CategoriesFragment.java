@@ -2,9 +2,7 @@ package com.whoami.moneytracker.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -18,11 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.activeandroid.query.Select;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.CategoriesAdapter;
 import com.whoami.moneytracker.database.CategoryEntity;
-import com.whoami.moneytracker.database.ExpenseEntity;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
@@ -34,25 +30,26 @@ import java.util.List;
 @EFragment
 @OptionsMenu(R.menu.menu_search)
 public class CategoriesFragment extends Fragment {
-
+    private static final int ID = 1;
     private static final String SEARCH_QUERY_ID = "search_query_id";
     private RecyclerView recyclerView;
-    private CoordinatorLayout rootLayout;
-    private FloatingActionButton fab;
-
+    FloatingActionButton fab;
     SearchView searchView;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoryQuery("");
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.categories_fragment, container, false);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.categories_fab);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.list_of_categories);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        getActivity().setTitle(R.string.nav_drawer_categories);
-
-        rootLayout = (CoordinatorLayout) rootView.findViewById(R.id.categories_coordinator);
-
-        initRecycleView(rootView);
-        initFab(rootView);
         return rootView;
     }
 
@@ -70,53 +67,33 @@ public class CategoriesFragment extends Fragment {
         searchView.setQueryHint(getString(R.string.search_title));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String s) {
+                categoryQuery(s);
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String s) {
                 BackgroundExecutor.cancelAll(SEARCH_QUERY_ID, true);
-                queryExpenses(newText);
-                return true;
+                categoryQuery(s);
+                return false;
             }
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadExpenses("");
+    @Background(delay = 1000, id = SEARCH_QUERY_ID)
+    void categoryQuery(String query) {
+        loadCategory(query);
     }
 
-    private void initRecycleView(View view) {
-        recyclerView = (RecyclerView) view.findViewById(R.id.list_of_categories);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    private void initFab(View view) {
-        fab = (FloatingActionButton) view.findViewById(R.id.categories_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(rootLayout, R.string.categories_snackbar_message, Snackbar.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    @Background(delay = 600, id = SEARCH_QUERY_ID)
-    void queryExpenses(String query) {
-        loadExpenses(query);
-    }
-
-    private void loadExpenses(final String query) {
-        getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<CategoryEntity>>() {
+    private void loadCategory(final String query) {
+        getLoaderManager().restartLoader(ID, null, new LoaderManager.LoaderCallbacks<List<CategoryEntity>>() {
             @Override
             public Loader<List<CategoryEntity>> onCreateLoader(int id, Bundle args) {
                 final AsyncTaskLoader<List<CategoryEntity>> loader = new AsyncTaskLoader<List<CategoryEntity>>(getActivity()) {
                     @Override
                     public List<CategoryEntity> loadInBackground() {
-                        return getDataList(query);
+                        return CategoryEntity.selectAll(query);
                     }
                 };
                 loader.forceLoad();
@@ -130,15 +107,7 @@ public class CategoriesFragment extends Fragment {
 
             @Override
             public void onLoaderReset(Loader<List<CategoryEntity>> loader) {
-
             }
         });
-    }
-
-    private List<CategoryEntity> getDataList(String filter){
-        return new Select()
-                .from(CategoryEntity.class)
-                .where("Name LIKE ?", new String[]{'%' + filter + '%'})
-                .execute();
     }
 }

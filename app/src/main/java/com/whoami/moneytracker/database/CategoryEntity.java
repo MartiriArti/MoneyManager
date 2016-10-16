@@ -41,16 +41,9 @@ public class CategoryEntity extends Model {
                 .execute();
     }
 
-
-  /*  @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "expenses")
-    public List<Expenses> getExpenses(){
-        if (expenses == null || expenses.isEmpty()){
-            expenses = SQLite.select()
-                    .from(Expenses.class)
-                    .where(Expenses_Table.category_id.eq(id))
-                    .queryList();
-        }
-        return expenses;
-    }*/
-
+    public static List<CategoryEntity> selectAll(String query){
+        return  new Select().from(CategoryEntity.class)
+                .where("name LIKE?", new String[] {"%" + query + "%"})
+                .execute();
+    }
 }

@@ -22,6 +22,10 @@ public class CategoryEntity extends Model {
         this.name = name;
     }
 
+    public List<ExpenseEntity> expenses() {
+        return getMany(ExpenseEntity.class, "category");
+    }
+
     public String getName() {
         return name;
     }
@@ -30,8 +34,16 @@ public class CategoryEntity extends Model {
         this.name = name;
     }
 
+
     public static List<CategoryEntity> selectAll(){
-        return new Select().from(CategoryEntity.class).execute();
+        return new Select()
+                .from(CategoryEntity.class)
+                .execute();
     }
 
+    public static List<CategoryEntity> selectAll(String query){
+        return  new Select().from(CategoryEntity.class)
+                .where("name LIKE?", new String[] {"%" + query + "%"})
+                .execute();
+    }
 }

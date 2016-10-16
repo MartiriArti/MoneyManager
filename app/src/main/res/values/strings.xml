@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MoneyManager</string>
+    <string name="logo_desc">app logo</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="settings_splash">Settings screen!</string>
@@ -14,23 +15,29 @@
     <string name="drawer_user_avatar_description">Avatarka</string>
     <string name="expenses_snackbar_message">snackbar in the expenses fragment!</string>
     <string name="categories_snackbar_message">snackbar in the categories fragment!</string>
+
+    <!--AddExpenseActivity-->
     <string name="add_expenses_editText_expense">Введите сумму</string>
     <string name="add_expenses_editText_description">Введите описание покупки</string>
     <string name="add_expenses_editText_date">Введите дату покупки</string>
     <string name="btnCancel">Отмена</string>
     <string name="btnApply">Принять</string>
     <string name="spinner_title">Select Category</string>
-    <string name="logo_desc">app logo</string>
     <string name="add_expense_apply_not_write">Не все поля заполнены!</string>
     <string name="apply_is_true">Сохранено</string>
     <string name="select_categories">Выберите категорию</string>
+    <string name="search_title">Поиск</string>
 
-        <string-array name="categories">
-            <item>Развлечения</item>
-            <item>Учеба</item>
-            <item>Лекарства</item>
-            <item>Кафе</item>
-            <item>Кино</item>
-            <item>Еда</item>
-        </string-array>
+    <!--RegistrationActivity-->
+    <string name="registration_sign_up">Подключиться</string>
+    <string name="registration_login">Логин</string>
+    <string name="registration_password">Пароль</string>
+    <string name="wrong_login">Не верный логин</string>
+    <string name="wrong_password">Не верный пароль</string>
+    <string name="registration_btn_registration">Подключиться</string>
+    <string name="registration_length">Логин или пароль слишком короткие</string>
+    <string name="registration_login_is_already_taken">Логин уже занят</string>
+    <string name="registration_error">Ошибка</string>
+    <string name="network_not_available">Нет соединения</string>
+
 </resources>

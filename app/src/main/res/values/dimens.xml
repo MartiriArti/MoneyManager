@@ -20,4 +20,10 @@
     <dimen name="margin_in_add_expense">30dp</dimen>
     <dimen name="splash_image_size">200dp</dimen>
     <dimen name="splash_text_size">40sp</dimen>
+
+    <!--RegistrationActivity -->
+    <dimen name="btn_width">150dp</dimen>
+    <dimen name="linear_padding">16dp</dimen>
+
+
 </resources>

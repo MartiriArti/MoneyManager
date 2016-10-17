@@ -19,6 +19,7 @@ import android.widget.SearchView;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.CategoriesAdapter;
 import com.whoami.moneytracker.database.CategoryEntity;
+import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
@@ -30,8 +31,7 @@ import java.util.List;
 @EFragment
 @OptionsMenu(R.menu.menu_search)
 public class CategoriesFragment extends Fragment {
-    private static final int ID = 1;
-    private static final String SEARCH_QUERY_ID = "search_query_id";
+
     private RecyclerView recyclerView;
     FloatingActionButton fab;
     SearchView searchView;
@@ -74,20 +74,20 @@ public class CategoriesFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                BackgroundExecutor.cancelAll(SEARCH_QUERY_ID, true);
+                BackgroundExecutor.cancelAll(ConstantManager.SEARCH_QUERY_ID, true);
                 categoryQuery(s);
                 return false;
             }
         });
     }
 
-    @Background(delay = 1000, id = SEARCH_QUERY_ID)
+    @Background(delay = ConstantManager.DELAY, id = ConstantManager.SEARCH_QUERY_ID)
     void categoryQuery(String query) {
         loadCategory(query);
     }
 
     private void loadCategory(final String query) {
-        getLoaderManager().restartLoader(ID, null, new LoaderManager.LoaderCallbacks<List<CategoryEntity>>() {
+        getLoaderManager().restartLoader(ConstantManager.ID, null, new LoaderManager.LoaderCallbacks<List<CategoryEntity>>() {
             @Override
             public Loader<List<CategoryEntity>> onCreateLoader(int id, Bundle args) {
                 final AsyncTaskLoader<List<CategoryEntity>> loader = new AsyncTaskLoader<List<CategoryEntity>>(getActivity()) {

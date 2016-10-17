@@ -14,6 +14,7 @@ import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.MySpinnerAdapter;
 import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.database.ExpenseEntity;
+import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -48,7 +49,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     @AfterViews
     void load() {
-        sdf = new SimpleDateFormat("dd.MM.yyyy");
+        sdf = new SimpleDateFormat(ConstantManager.DateFormat);
         String currentDateandTime = sdf.format(new Date());
         date.setText(currentDateandTime);
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="@mipmap/pattern_reg_activity"
+    android:id="@+id/registration_layout_root">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_reg_activity"
+        android:id="@+id/loggin_et"
+        android:orientation="horizontal">
+
+        <EditText
+            android:background="@color/back"
+            android:textAlignment="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLength="10"
+            android:hint="@string/enter_login"
+            android:id="@+id/enter_login"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/loggin_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_reg_activity"
+        android:id="@+id/passLayout"
+        android:orientation="horizontal">
+
+        <EditText
+            android:background="@color/back"
+        android:textAlignment="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="textPassword"
+        android:maxLength="10"
+        android:hint="@string/enter_password"
+        android:id="@+id/enter_password"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_btn_reg_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passLayout"
+        android:orientation="horizontal">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/back"
+        android:background="@color/apply"
+        android:text="@string/registration"
+        android:id="@+id/registration_btn"
+        tools:ignore="ButtonStyle" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/google"
+        android:textColor="@color/back"
+        android:text="@string/registration_sign_up"
+        android:id="@+id/registration_btn_sign_up"
+        tools:ignore="ButtonStyle" />
+    </LinearLayout>
+</RelativeLayout>

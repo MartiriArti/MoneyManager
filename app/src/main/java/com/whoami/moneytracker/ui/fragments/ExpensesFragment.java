@@ -22,6 +22,7 @@ import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
 import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.ui.AddExpenseActivity_;
+import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
@@ -33,8 +34,6 @@ import java.util.List;
 @EFragment
 @OptionsMenu(R.menu.menu_search)
 public class ExpensesFragment extends Fragment{
-
-    private static final String SEARCH_QUERY_ID = "search_query_id";
 
     private RecyclerView recyclerView;
     private CoordinatorLayout rootLayout;
@@ -76,7 +75,7 @@ public class ExpensesFragment extends Fragment{
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                BackgroundExecutor.cancelAll(SEARCH_QUERY_ID, true);
+                BackgroundExecutor.cancelAll(ConstantManager.SEARCH_QUERY_ID, true);
                 queryExpenses(newText);
                 return false;
             }
@@ -104,7 +103,7 @@ public class ExpensesFragment extends Fragment{
             }
         });
     }
-    @Background(delay = 600, id = SEARCH_QUERY_ID)
+    @Background(delay = ConstantManager.DELAY, id = ConstantManager.SEARCH_QUERY_ID)
     void queryExpenses(String query){
         loadExpenses(query);
     }

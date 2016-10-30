@@ -133,46 +133,46 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-        if (noRegCB.isChecked()) {
-            if (isNwConnected(RegistrationActivity.this)) {
-                String login = loginEt.getText().toString();
-                String password = pass.getText().toString();
-                String confirm = confirm_pass.getText().toString();
-                if (!TextUtils.isEmpty(login) && !TextUtils.isEmpty(password)) {
-                    if (login.length() >= 5 && password.length() >= 5) {
-                        if (confirm.equals(password)) {
-                            register(login, password);
-                        } else {
-                            Snackbar.make(linearLayout, R.string.wrong_confirm, Snackbar.LENGTH_SHORT).show();
-                        }
+    if (noRegCB.isChecked()) {
+        if (isNwConnected(RegistrationActivity.this)) {
+            String login = loginEt.getText().toString();
+            String password = pass.getText().toString();
+            String confirm = confirm_pass.getText().toString();
+            if (!TextUtils.isEmpty(login) && !TextUtils.isEmpty(password)) {
+                if (login.length() >= 5 && password.length() >= 5) {
+                    if (confirm.equals(password)) {
+                        register(login, password);
                     } else {
-                        Snackbar.make(linearLayout, R.string.registration_login, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(linearLayout, R.string.wrong_confirm, Snackbar.LENGTH_SHORT).show();
                     }
                 } else {
-                    if (TextUtils.isEmpty(login))
-                        Snackbar.make(linearLayout, getString(R.string.wrong_login), Snackbar.LENGTH_SHORT).show();
-                    if (TextUtils.isEmpty(password))
-                        Snackbar.make(linearLayout, getString(R.string.wrong_password), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(linearLayout, R.string.registration_login, Snackbar.LENGTH_SHORT).show();
                 }
             } else {
-                Snackbar.make(linearLayout, R.string.network_not_available, Snackbar.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(login))
+                    Snackbar.make(linearLayout, getString(R.string.wrong_login), Snackbar.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password))
+                    Snackbar.make(linearLayout, getString(R.string.wrong_password), Snackbar.LENGTH_SHORT).show();
             }
-
         } else {
-            if (isNwConnected(RegistrationActivity.this)) {
-                String login = loginEt.getText().toString();
-                String password = pass.getText().toString();
-                if (!TextUtils.isEmpty(login) && !TextUtils.isEmpty(password)) {
-                    login(login, password);
-                } else {
-                    Snackbar.make(linearLayout, R.string.wrong_login, Snackbar.LENGTH_SHORT).show();
-                }
-            } else {
-                Snackbar.make(linearLayout, R.string.network_not_available, Snackbar.LENGTH_SHORT).show();
-            }
+            Snackbar.make(linearLayout, R.string.network_not_available, Snackbar.LENGTH_SHORT).show();
         }
 
+    } else {
+        if (isNwConnected(RegistrationActivity.this)) {
+            String login = loginEt.getText().toString();
+            String password = pass.getText().toString();
+            if (!TextUtils.isEmpty(login) && !TextUtils.isEmpty(password)) {
+                login(login, password);
+            } else {
+                Snackbar.make(linearLayout, R.string.wrong_login, Snackbar.LENGTH_SHORT).show();
             }
+        } else {
+            Snackbar.make(linearLayout, R.string.network_not_available, Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+}
 
         });
 

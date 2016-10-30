@@ -3,7 +3,6 @@ package com.whoami.moneytracker.ui;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.whoami.moneytracker.MoneyManagerApplication;
 import com.whoami.moneytracker.R;
@@ -29,7 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
 
             }
-        }, ConstantManager.DELAY);
+        }, ConstantManager.SPLASH_SCREEN_TIMEOUT);
     }
 }
 

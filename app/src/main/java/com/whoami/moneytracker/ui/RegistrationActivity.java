@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,8 +40,6 @@ import java.io.IOException;
 @EActivity(R.layout.registration_activity)
 public class RegistrationActivity extends AppCompatActivity {
 
-    final public static String LOG_OUT = "my_log";
-
     @ViewById(R.id.registration_layout_root)
     LinearLayout linearLayout;
     @ViewById(R.id.enter_login)
@@ -65,6 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
             UserRegistrationModel registrationModel = restService.register(login, password);
             if (registrationModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
                 navigateToReg();
+                success();
                 finish();
             } else {
                 loginBusy();
@@ -75,7 +73,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     @Background
@@ -84,7 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
         try {
             UserLoginModel userLoginModel = restService.login(login, password);
             if (userLoginModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
-                MoneyManagerApplication.seveAuthToken(userLoginModel.getAuthToken());
+                MoneyManagerApplication.saveAuthToken(userLoginModel.getAuthToken());
                 success();
                 finish();
             } else {
@@ -106,7 +103,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @UiThread
     void success() {
-        startActivity(new Intent(RegistrationActivity.this, MainActivity_.class));
+        Intent intent = new Intent(this, MainActivity_.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @UiThread
@@ -223,9 +222,8 @@ public class RegistrationActivity extends AppCompatActivity {
         } catch (IOException | GoogleAuthException e) {
             e.printStackTrace();
         }
-        Log.d(LOG_OUT,"token"+ token);
         if (token != null) {
-            MoneyManagerApplication.seveGoogleAuthToken(token);
+            MoneyManagerApplication.saveGoogleAuthToken(token);
             success();
             finish();
         }

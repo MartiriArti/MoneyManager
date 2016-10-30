@@ -15,7 +15,7 @@ public class MoneyManagerApplication extends Application{
         sharedPreferences = getSharedPreferences(ConstantManager.SHARED_PREF, MODE_PRIVATE);
     }
 
-    public static void seveAuthToken (String token){
+    public static void saveAuthToken (String token){
         sharedPreferences.edit().putString(ConstantManager.TOKEN_KEY, token).apply();
     }
 
@@ -23,7 +23,7 @@ public class MoneyManagerApplication extends Application{
         return sharedPreferences.getString(ConstantManager.TOKEN_KEY, "");
     }
 
-    public static void seveGoogleAuthToken (String token){
+    public static void saveGoogleAuthToken (String token){
         sharedPreferences.edit().putString(ConstantManager.GOOGLE_TOKEN_KEY, token).apply();
     }
 

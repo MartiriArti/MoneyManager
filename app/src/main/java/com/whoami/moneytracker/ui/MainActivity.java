@@ -28,6 +28,8 @@ import org.androidannotations.annotations.res.StringRes;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
 
+
+
     @ViewById(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 

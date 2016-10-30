@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -8,69 +8,63 @@
     android:background="@mipmap/pattern_reg_activity"
     android:id="@+id/registration_layout_root">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_reg_activity"
-        android:id="@+id/loggin_et"
-        android:orientation="horizontal">
-
         <EditText
             android:background="@color/back"
             android:textAlignment="center"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:maxLength="10"
             android:hint="@string/enter_login"
+            android:layout_margin="@dimen/activity_horizontal_margin"
             android:id="@+id/enter_login"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_below="@+id/loggin_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance_reg_activity"
-        android:id="@+id/passLayout"
-        android:orientation="horizontal">
 
         <EditText
             android:background="@color/back"
         android:textAlignment="center"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:inputType="textPassword"
         android:maxLength="10"
         android:hint="@string/enter_password"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:id="@+id/enter_password"/>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/margin_btn_reg_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/passLayout"
-        android:orientation="horizontal">
+        <EditText
+            android:background="@color/back"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="10"
+            android:hint="@string/enter_password"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:visibility="invisible"
+            android:id="@+id/confirm_password"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:textColor="@color/back"
         android:background="@color/apply"
-        android:text="@string/registration"
+        android:text="@string/login_activity_btn"
         android:id="@+id/registration_btn"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         tools:ignore="ButtonStyle" />
 
-    <Button
-        android:layout_width="match_parent"
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/google"
-        android:textColor="@color/back"
-        android:text="@string/registration_sign_up"
-        android:id="@+id/registration_btn_sign_up"
-        tools:ignore="ButtonStyle" />
-    </LinearLayout>
-</RelativeLayout>
+        android:id="@+id/login_google"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_gravity="center">
+    </com.google.android.gms.common.SignInButton>
+
+        <CheckBox
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/no_reg_CB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_reg_text"
+            />
+
+</LinearLayout>

@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         }
     }
 
-    @UiThread
     void glideLoad(){
         View headerView = navigationView.getHeaderView(0);
         ImageView avatar = (ImageView) headerView.findViewById(R.id.header_avatar);
@@ -108,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         categoryEntity.setName("Досуг");
         categoryEntity.save();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -164,9 +162,10 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     private void exit() {
         MoneyManagerApplication.saveAuthToken("");
+        MoneyManagerApplication.saveGoogleAuthToken("");
         Intent intent = new Intent(this, RegistrationActivity_.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     private void setToolbarTitle(String backStackEntryName) {

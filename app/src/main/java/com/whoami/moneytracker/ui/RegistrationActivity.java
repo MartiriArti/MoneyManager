@@ -61,8 +61,7 @@ public class RegistrationActivity extends AppCompatActivity {
         try {
             UserRegistrationModel registrationModel = restService.register(login, password);
             if (registrationModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
-                navigateToReg();
-                success();
+                successRegistration();
                 finish();
             } else {
                 loginBusy();
@@ -82,7 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
             UserLoginModel userLoginModel = restService.login(login, password);
             if (userLoginModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
                 MoneyManagerApplication.saveAuthToken(userLoginModel.getAuthToken());
-                success();
+                successRegistration();
                 finish();
             } else {
                 wrongLogin();
@@ -102,18 +101,14 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     @UiThread
-    void success() {
-        Intent intent = new Intent(this, MainActivity_.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    @UiThread
-    void navigateToReg() {
+    void successRegistration() {
         noRegCB.setChecked(false);
         loginEt.setText("");
         pass.setText("");
         Snackbar.make(linearLayout, R.string.registration_succsess, Snackbar.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity_.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @UiThread
@@ -129,6 +124,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @AfterViews
     public void run() {
+        setTitle(R.string.registration);
+
         registration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,7 +221,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         if (token != null) {
             MoneyManagerApplication.saveGoogleAuthToken(token);
-            success();
+            successRegistration();
             finish();
         }
     }

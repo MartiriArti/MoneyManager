@@ -12,7 +12,7 @@
         android:layout_height="@dimen/drawer_header_avatar_sizes"
         android:id="@+id/header_avatar"
         android:layout_margin="@dimen/drawer_header_spacing_large"
-        android:src="@mipmap/avatar"
+
         android:contentDescription="@string/drawer_user_avatar_description"/>
 
     <TextView

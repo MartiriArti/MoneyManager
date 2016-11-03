@@ -12,6 +12,7 @@ public class UserLoginModel {
     @SerializedName("auth_token")
     private String authToken;
 
+
     public String getStatus() {
         return status;
     }
@@ -35,5 +36,5 @@ public class UserLoginModel {
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
-}
 
+}

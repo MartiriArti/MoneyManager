@@ -1,5 +1,6 @@
 package com.whoami.moneytracker.ui;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.whoami.moneytracker.MoneyManagerApplication;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.ui.fragments.CategoriesFragment;
@@ -22,6 +28,7 @@ import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -58,15 +65,27 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     void preLoad() {
         setActionBar();
         setDrawerLayout();
+        glideLoad();
+
+        if (CategoryEntity.selectAll().size() == 0) {
+            genCategory();
+        }
+    }
+
+    void glideLoad(){
+        View headerView = navigationView.getHeaderView(0);
+        ImageView avatar = (ImageView) headerView.findViewById(R.id.header_avatar);
+
+        Glide.with(this)
+                .load(R.mipmap.avatar)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(avatar);
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(this);
         replaceFragment(new ExpensesFragment());
-
-        if(CategoryEntity.selectAll().size() == 0){
-            genCategory();}
     }
-
 
     public void genCategory() {
         categoryEntity = new CategoryEntity();
@@ -88,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         categoryEntity.setName("Досуг");
         categoryEntity.save();
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -135,11 +152,20 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
                         replaceFragment(new SettingsFragment());
                         break;
                     case R.id.drawer_exit:
+                        exit();
                         break;
                 }
                 return true;
             }
         });
+    }
+
+    private void exit() {
+        MoneyManagerApplication.saveAuthToken("");
+        MoneyManagerApplication.saveGoogleAuthToken("");
+        Intent intent = new Intent(this, RegistrationActivity_.class);
+        startActivity(intent);
+        finish();
     }
 
     private void setToolbarTitle(String backStackEntryName) {
@@ -185,16 +211,17 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
     private void replaceFragment(Fragment fragment) {
         String backStackName = fragment.getClass().getName();
 
-       boolean isFragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
+        boolean isFragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
 
-       if (!isFragmentPopped && fragmentManager.findFragmentByTag(backStackName) == null) {
+        if (!isFragmentPopped && fragmentManager.findFragmentByTag(backStackName) == null) {
 
-           FragmentTransaction transaction = fragmentManager.beginTransaction();
-           transaction.replace(R.id.main_container, fragment, backStackName);
-           transaction.addToBackStack(backStackName);
-           transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-           transaction.commit();
-       }
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.main_container, fragment, backStackName);
+            transaction.addToBackStack(backStackName);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.commit();
+        }
     }
+
 }
 

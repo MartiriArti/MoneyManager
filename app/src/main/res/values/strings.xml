@@ -41,5 +41,11 @@
     <string name="network_not_available">Нет соединения</string>
     <string name="enter_login">Введите Ваш логин</string>
     <string name="enter_password">Введите Ваш пароль</string>
+    <string name="login_activity_btn">Подключиться</string>
+    <string name="confirm_password">Повторите Ваш пароль</string>
+    <string name="no_reg_text">Еще не зарегистрированы?</string>
+    <string name="registration_succsess">Регистрация успешна</string>
+    <string name="wrong_confirm">Пароли не одинаковые</string>
+
 
 </resources>

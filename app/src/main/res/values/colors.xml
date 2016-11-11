@@ -9,4 +9,5 @@
     <color name="black">#000000</color>
     <color name="splash_dackground">#11615f</color>
     <color name="google">#c42c2c</color>
+    <color name="selected_color">#403F51B5</color>
 </resources>

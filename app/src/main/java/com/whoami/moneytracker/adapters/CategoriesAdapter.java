@@ -8,29 +8,62 @@ import android.widget.TextView;
 
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.database.CategoryEntity;
+import com.whoami.moneytracker.ui.utils.SelectableAdapter;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesHolder> {
+public class CategoriesAdapter extends SelectableAdapter<CategoriesAdapter.CardViewHolder> {
 
-    private List<CategoryEntity> categories;
+    List<CategoryEntity> categories;
 
-    public CategoriesAdapter(List<CategoryEntity> categories) {
+    private CardViewHolder.ClickListener clickListener;
+
+    public CategoriesAdapter(List<CategoryEntity> categories, CardViewHolder.ClickListener clickListener) {
+
+        this.clickListener = clickListener;
+
         this.categories = categories;
     }
 
     @Override
-    public CategoriesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.category_item, parent, false);
-        return new CategoriesHolder(itemView);
+    public CategoriesAdapter.CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
+        return new CardViewHolder(convertView, clickListener);
     }
 
     @Override
-    public void onBindViewHolder(CategoriesHolder holder, int position) {
+    public void onBindViewHolder(CardViewHolder holder, int position) {
         CategoryEntity category = categories.get(position);
-        holder.name.setText(category.getName());
+        holder.categories_name.setText(category.name);
+
+        holder.selectedOverlay.setVisibility(isSelected(position) ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    public void removeItems(List<Integer> positions) {
+
+        Collections.sort(positions, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer lhs, Integer rhs) {
+                return rhs - lhs;
+            }
+        });
+
+        while (!positions.isEmpty()) {
+            removeItem(positions.get(0));
+            positions.remove(0);
+        }
+
+    }
+
+    public void removeItem(int position) {
+        if (categories.get(position) != null) {
+            categories.get(position).delete();
+            categories.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     @Override
@@ -38,13 +71,43 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         return categories.size();
     }
 
-    class CategoriesHolder extends RecyclerView.ViewHolder {
+    public static class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        public TextView name;
+        protected TextView categories_name;
 
-        public CategoriesHolder(View itemView) {
-            super(itemView);
-            name = (TextView) itemView.findViewById(R.id.category_name);
+        protected View selectedOverlay;
+
+        private ClickListener clickListener;
+
+        public CardViewHolder(View convertView, ClickListener clickListener) {
+            super(convertView);
+            categories_name = (TextView) convertView.findViewById(R.id.category_name);
+
+            selectedOverlay = itemView.findViewById(R.id.selected_overlay);
+
+            this.clickListener = clickListener;
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clickListener != null) {
+                clickListener.onItemClicked(getAdapterPosition());
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            return clickListener != null && clickListener.onItemLongClicked(getAdapterPosition());
+        }
+
+        public interface ClickListener {
+            void onItemClicked(int position);
+
+            boolean onItemLongClicked(int position);
         }
     }
+
 }

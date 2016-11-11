@@ -33,5 +33,9 @@ public final class ConstantManager {
             "https://www.googleapis.com/auth/userinfo.email";
     public final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE + " " + EMAIL_SCOPE;
 
+    public static final String AVATAR = "avatar";
+    public static final String USER_NAME = "name";
+    public static final String USER_EMALE = "email";
+
 
 }

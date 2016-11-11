@@ -12,7 +12,6 @@
         android:layout_height="@dimen/drawer_header_avatar_sizes"
         android:id="@+id/header_avatar"
         android:layout_margin="@dimen/drawer_header_spacing_large"
-
         android:contentDescription="@string/drawer_user_avatar_description"/>
 
     <TextView
@@ -22,7 +21,6 @@
         android:layout_above="@+id/header_email"
         android:layout_marginLeft="@dimen/drawer_header_spacing_large"
         android:layout_marginStart="@dimen/drawer_header_spacing_large"
-        android:text="@string/user_name"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
     <TextView
@@ -33,7 +31,6 @@
         android:layout_marginLeft="@dimen/drawer_header_spacing_large"
         android:layout_marginStart="@dimen/drawer_header_spacing_large"
         android:layout_marginBottom="@dimen/drawer_header_spacing_large"
-        android:text="@string/user_mail"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 

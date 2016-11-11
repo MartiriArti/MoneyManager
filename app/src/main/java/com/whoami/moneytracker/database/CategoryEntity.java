@@ -46,4 +46,10 @@ public class CategoryEntity extends Model {
                 .where("name LIKE?", new String[] {"%" + query + "%"})
                 .execute();
     }
+
+    public static CategoryEntity selectById(int query){
+        return new Select().from(CategoryEntity.class)
+                .where("id LIKE?", query)
+                .executeSingle();
+    }
 }

@@ -18,6 +18,8 @@ public class ExpenseEntity extends Model {
     public String date;
     @Column(name = "category")
     public CategoryEntity category;
+    @Column(name = "sum")
+    public String sum;
 
     public ExpenseEntity(){
         super();
@@ -59,6 +61,16 @@ public class ExpenseEntity extends Model {
         return new Select().from(ExpenseEntity.class)
                 .where("name LIKE?", new String[] {'%' + query + '%'})
                 .execute();
+    }
+
+    public String getSum() {
+        return sum;
+    }
+
+    public static ExpenseEntity selectById(int query){
+        return new Select().from(ExpenseEntity.class)
+                .where("id LIKE?", query)
+                .executeSingle();
     }
 
 }

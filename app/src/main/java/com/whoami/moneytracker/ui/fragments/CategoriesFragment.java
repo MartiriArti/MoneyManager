@@ -1,5 +1,6 @@
 package com.whoami.moneytracker.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +20,13 @@ import android.widget.SearchView;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.CategoriesAdapter;
 import com.whoami.moneytracker.database.CategoryEntity;
+import com.whoami.moneytracker.ui.AddCategoryActivity_;
 import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.api.BackgroundExecutor;
 
 import java.util.List;
@@ -33,13 +36,22 @@ import java.util.List;
 public class CategoriesFragment extends Fragment {
 
     private RecyclerView recyclerView;
+
+    @ViewById(R.id.categories_fab)
     FloatingActionButton fab;
+
     SearchView searchView;
 
     @Override
     public void onStart() {
         super.onStart();
         categoryQuery("");
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AddCategoryActivity_.class));
+            }
+        });
     }
 
     @Nullable
@@ -110,4 +122,5 @@ public class CategoriesFragment extends Fragment {
             }
         });
     }
+
 }

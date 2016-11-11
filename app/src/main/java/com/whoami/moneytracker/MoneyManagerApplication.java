@@ -31,4 +31,28 @@ public class MoneyManagerApplication extends Application{
         return sharedPreferences.getString(ConstantManager.GOOGLE_TOKEN_KEY, "");
     }
 
+    public static String getGoogleAvatar(){
+        return sharedPreferences.getString(ConstantManager.AVATAR, "");
+    }
+
+    public static void saveGoogleAvatar (String url){
+        sharedPreferences.edit().putString(ConstantManager.AVATAR, url).apply();
+    }
+
+    public static String getUserName(){
+        return sharedPreferences.getString(ConstantManager.USER_NAME, "");
+    }
+
+    public static void saveGoogleUserName(String name){
+        sharedPreferences.edit().putString(ConstantManager.USER_NAME, name).apply();
+    }
+
+    public static String getUserEmile(){
+        return sharedPreferences.getString(ConstantManager.USER_EMALE, "");
+    }
+
+    public static void saveGoogleUserEmail(String emile){
+        sharedPreferences.edit().putString(ConstantManager.USER_EMALE, emile).apply();
+    }
+
 }

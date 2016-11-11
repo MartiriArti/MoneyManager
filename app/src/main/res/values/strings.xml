@@ -47,5 +47,14 @@
     <string name="registration_succsess">Регистрация успешна</string>
     <string name="wrong_confirm">Пароли не одинаковые</string>
 
+    <!--AddCategotyActivity-->
+    <string name="add_category_hint">Введите название категории</string>
+    <string name="category_toast">Имя категории не может быть пустым</string>
+
+    <!--Sync-->
+    <string name="content_authority" translatable="false">com.whoami.moneytracker</string>
+    <string name="sync_account_type" translatable="false">moneytracker.whoami.com</string>
+    <string name="add_category">Добавить категорию</string>
+
 
 </resources>

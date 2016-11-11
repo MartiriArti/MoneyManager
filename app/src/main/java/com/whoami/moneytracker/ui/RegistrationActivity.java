@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +28,8 @@ import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.rest.RestService;
 import com.whoami.moneytracker.rest.models.UserLoginModel;
 import com.whoami.moneytracker.rest.models.UserRegistrationModel;
+import com.whoami.moneytracker.sync.models.UserGetDataModel;
+import com.whoami.moneytracker.sync.models.UserValidTokenModel;
 import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -39,6 +42,8 @@ import java.io.IOException;
 
 @EActivity(R.layout.registration_activity)
 public class RegistrationActivity extends AppCompatActivity {
+
+    final public static String LOG_OUT = "my_log";
 
     @ViewById(R.id.registration_layout_root)
     LinearLayout linearLayout;
@@ -61,7 +66,8 @@ public class RegistrationActivity extends AppCompatActivity {
         try {
             UserRegistrationModel registrationModel = restService.register(login, password);
             if (registrationModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
-                successRegistration();
+                navigateToReg();
+                success();
                 finish();
             } else {
                 loginBusy();
@@ -81,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
             UserLoginModel userLoginModel = restService.login(login, password);
             if (userLoginModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
                 MoneyManagerApplication.saveAuthToken(userLoginModel.getAuthToken());
-                successRegistration();
+                success();
                 finish();
             } else {
                 wrongLogin();
@@ -92,7 +98,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     @UiThread
@@ -101,14 +106,17 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     @UiThread
-    void successRegistration() {
+    void success() {
+        startActivity(new Intent(RegistrationActivity.this, MainActivity_.class));
+        finish();
+    }
+
+    @UiThread
+    void navigateToReg() {
         noRegCB.setChecked(false);
         loginEt.setText("");
         pass.setText("");
         Snackbar.make(linearLayout, R.string.registration_succsess, Snackbar.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity_.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     @UiThread
@@ -180,7 +188,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     confirm_pass.setVisibility(View.VISIBLE);
                     registration.setText(getString(R.string.registration));
                 } else {
-                    confirm_pass.setVisibility(View.GONE);
+                    confirm_pass.setVisibility(View.INVISIBLE);
                     registration.setText(getString(R.string.login_activity_btn));
                 }
 
@@ -205,24 +213,43 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     @Background
-    void logInWithGoogle(Intent data) {
+    void logInWithGoogle(Intent data){
         String token = null;
         final String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
         final String accountType = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
 
         Account account = new Account(accountName, accountType);
         try {
-            token = GoogleAuthUtil.getToken(this, account, ConstantManager.SCOPES);
-
-        } catch (UserRecoverableAuthException userAuthEx) {
+            token = GoogleAuthUtil.getToken(this,account, ConstantManager.SCOPES);
+        }
+        catch (UserRecoverableAuthException userAuthEx){
             startActivityForResult(userAuthEx.getIntent(), ConstantManager.REQUEST_CODE);
-        } catch (IOException | GoogleAuthException e) {
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (GoogleAuthException e) {
+            Log.d(LOG_OUT, "Fatal Authorization Exception" + e.getLocalizedMessage());
             e.printStackTrace();
         }
-        if (token != null) {
-            MoneyManagerApplication.saveGoogleAuthToken(token);
-            successRegistration();
-            finish();
+        Log.d(LOG_OUT,"token"+ token);
+        if (token != null){
+            RestService restService = new RestService();
+            try {
+
+                UserValidTokenModel userValidTokenModel = restService.validToken(token);
+                if (userValidTokenModel.getStatus().equals(ConstantManager.LOGIN_SUCCEED)) {
+                    MoneyManagerApplication.saveGoogleAuthToken(token);
+                    UserGetDataModel userGetDataModel = restService.getData(token);
+                    MoneyManagerApplication.saveGoogleAvatar(userGetDataModel.getPicture());
+                    MoneyManagerApplication.saveGoogleUserName(userGetDataModel.getName());
+                    MoneyManagerApplication.saveGoogleUserEmail(userGetDataModel.getEmail());
+                    success();
+                    finish();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

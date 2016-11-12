@@ -2,8 +2,6 @@ package com.whoami.moneytracker.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -13,16 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.activeandroid.query.Select;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
 import com.whoami.moneytracker.database.ExpenseEntity;
@@ -39,9 +31,10 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.api.BackgroundExecutor;
 
 import java.util.List;
-@EFragment
+
+@EFragment(R.layout.expenses_fragment)
 @OptionsMenu(R.menu.menu_search)
-public class ExpensesFragment extends Fragment{
+public class ExpensesFragment extends Fragment {
 
     private ExpensesAdapter adapter;
     private ActionModeCallback actionModeCallback = new ActionModeCallback();
@@ -72,18 +65,20 @@ public class ExpensesFragment extends Fragment{
             fabClicked();
         }
         getActivity().setTitle(getString(R.string.nav_drawer_expenses));
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         loadData("");
     }
+
+   /* @Override
+    public void onResume() {
+        super.onResume();
+
+    }*/
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        SearchView searchView = (SearchView)menuItem.getActionView();
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint(getString(R.string.search_title));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -101,8 +96,7 @@ public class ExpensesFragment extends Fragment{
     }
 
     @Background(delay = ConstantManager.DELAY, id = "1")
-    void delayedQuery(String filter)
-    {
+    void delayedQuery(String filter) {
         loadData(filter);
     }
 
@@ -128,18 +122,15 @@ public class ExpensesFragment extends Fragment{
                     @Override
                     public void onItemClicked(int position) {
 
-                        if(actionMode != null)
-                        {
+                        if (actionMode != null) {
                             toggleSelection(position);
                         }
                     }
 
                     @Override
-                    public boolean onItemLongClicked(int position)
-                    {
-                        if(actionMode == null)
-                        {
-                            AppCompatActivity activity = (AppCompatActivity)getActivity();
+                    public boolean onItemLongClicked(int position) {
+                        if (actionMode == null) {
+                            AppCompatActivity activity = (AppCompatActivity) getActivity();
                             actionMode = activity.startSupportActionMode(actionModeCallback);
                         }
 
@@ -158,23 +149,18 @@ public class ExpensesFragment extends Fragment{
         });
     }
 
-    private void toggleSelection(int position)
-    {
+    private void toggleSelection(int position) {
         adapter.toggleSelection(position);
         int count = adapter.getSelectedItemCount();
-        if(count == 0)
-        {
+        if (count == 0) {
             actionMode.finish();
-        }
-        else
-        {
+        } else {
             actionMode.setTitle(String.valueOf(count));
             actionMode.invalidate();
         }
     }
 
-    private class ActionModeCallback implements ActionMode.Callback
-    {
+    private class ActionModeCallback implements ActionMode.Callback {
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -189,8 +175,7 @@ public class ExpensesFragment extends Fragment{
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId())
-            {
+            switch (item.getItemId()) {
                 case R.id.menu_remove:
                     adapter.removeItems(adapter.getSelectedItems());
                     mode.finish();

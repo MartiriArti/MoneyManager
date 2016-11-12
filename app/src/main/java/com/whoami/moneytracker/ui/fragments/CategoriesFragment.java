@@ -36,7 +36,7 @@ import org.androidannotations.api.BackgroundExecutor;
 
 import java.util.List;
 
-@EFragment
+@EFragment(R.layout.categories_fragment)
 @OptionsMenu(R.menu.menu_search)
 public class CategoriesFragment extends Fragment {
 
@@ -63,7 +63,6 @@ public class CategoriesFragment extends Fragment {
 
     @AfterViews
     void ready() {
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecycleView.setLayoutManager(linearLayoutManager);
@@ -72,13 +71,14 @@ public class CategoriesFragment extends Fragment {
         }
 
         getActivity().setTitle(getString(R.string.nav_drawer_categories));
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         loadData("");
     }
+
+  /*  @Override
+    public void onResume() {
+        super.onResume();
+    }*/
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {

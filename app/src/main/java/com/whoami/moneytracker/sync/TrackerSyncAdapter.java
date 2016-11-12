@@ -79,8 +79,10 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
         for (int i = 0; i < categoryEntityList.size(); i++) {
             CategoryEntity categoryEntity = CategoryEntity.selectById(i);
             CategoryModel categoryModel = new CategoryModel();
+            String ctaName = categoryEntity.getName();
 /*/**/       categoryModel.setId(i);
-            categoryModel.setTitle(categoryEntity.getName());
+            categoryModel.setTitle(ctaName);
+           // categoryModel.setTitle(categoryEntity.getName());
             categoryModelsList.add(categoryModel);
         }
         String gson = new Gson().toJson(categoryModelsList);

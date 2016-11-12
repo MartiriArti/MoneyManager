@@ -10,7 +10,6 @@ import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.whoami.moneytracker.MoneyManagerApplication;
@@ -79,10 +78,9 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
         for (int i = 0; i < categoryEntityList.size(); i++) {
             CategoryEntity categoryEntity = CategoryEntity.selectById(i);
             CategoryModel categoryModel = new CategoryModel();
-            String ctaName = categoryEntity.getName();
-/*/**/       categoryModel.setId(i);
-            categoryModel.setTitle(ctaName);
-           // categoryModel.setTitle(categoryEntity.getName());
+ //           String ctaName = categoryEntity.getName();
+            categoryModel.setId(i);
+  //          categoryModel.setTitle(ctaName);
             categoryModelsList.add(categoryModel);
         }
         String gson = new Gson().toJson(categoryModelsList);
@@ -107,13 +105,13 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
             String date = expenseEntity.getDate();
 
             ExpensesModel expensesModel = new ExpensesModel();
- /*/**/     expensesModel.setId(i);
-   /*/**/   expensesModel.setSum(sum);
-   /*/**/   expensesModel.setComment(description);
+            expensesModel.setId(i);
+            expensesModel.setSum(sum);
+            expensesModel.setComment(description);
             expensesModel.setTrDate(date);
             CategoryEntity categoryEntity = expenseEntity.getCategory();
             int categoryId = (int) (long) categoryEntity.getId();
- /*/**/     expensesModel.setCategoryId(categoryId);
+            expensesModel.setCategoryId(categoryId);
             expensesModelsList.add(expensesModel);
         }
         String gson = new Gson().toJson(expensesModelsList);

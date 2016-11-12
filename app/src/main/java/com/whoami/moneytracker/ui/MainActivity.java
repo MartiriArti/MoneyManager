@@ -30,7 +30,9 @@ import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.rest.RestService;
 import com.whoami.moneytracker.sync.TrackerSyncAdapter;
 import com.whoami.moneytracker.ui.fragments.CategoriesFragment;
+import com.whoami.moneytracker.ui.fragments.CategoriesFragment_;
 import com.whoami.moneytracker.ui.fragments.ExpensesFragment;
+import com.whoami.moneytracker.ui.fragments.ExpensesFragment_;
 import com.whoami.moneytracker.ui.fragments.SettingsFragment;
 import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
 
@@ -130,10 +132,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         saveInst = savedInstanceState;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
@@ -145,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         getParam();
 
         if (savedInstanceState == null) {
-            replaceFragment(new ExpensesFragment());
+            replaceFragment(new ExpensesFragment_());
             setTitle(getString(R.string.nav_drawer_expenses));
         }
 
@@ -210,10 +208,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateToolbarTitle(Fragment fragment) {
         String fragmentClassName = fragment.getClass().getName();
-        if (fragmentClassName.equals(ExpensesFragment.class.getName())) {
+        if (fragmentClassName.equals(ExpensesFragment_.class.getName())) {
             setTitle(expensesTitle);
             navigationView.setCheckedItem(R.id.drawer_expenses);
-        } else if (fragmentClassName.equals(CategoriesFragment.class.getName())) {
+        } else if (fragmentClassName.equals(CategoriesFragment_.class.getName())) {
             setTitle(categoriesTitle);
             navigationView.setCheckedItem(R.id.drawer_categories);
         } else if (fragmentClassName.equals(StatisticsFragment.class.getName())) {
@@ -236,10 +234,10 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 switch (itemId) {
                     case R.id.drawer_expenses:
-                        replaceFragment(new ExpensesFragment());
+                        replaceFragment(new ExpensesFragment_());
                         break;
                     case R.id.drawer_categories:
-                        replaceFragment(new CategoriesFragment());
+                        replaceFragment(new CategoriesFragment_());
                         break;
                     case R.id.drawer_statistics:
                         replaceFragment(new StatisticsFragment());

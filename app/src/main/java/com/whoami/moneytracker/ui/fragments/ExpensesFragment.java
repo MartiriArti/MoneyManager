@@ -69,11 +69,11 @@ public class ExpensesFragment extends Fragment {
         loadData("");
     }
 
-   /* @Override
+    @Override
     public void onResume() {
         super.onResume();
-
-    }*/
+        loadData("");
+    }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {

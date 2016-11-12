@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.CategoriesAdapter;
 import com.whoami.moneytracker.database.CategoryEntity;
+import com.whoami.moneytracker.ui.utils.ClickListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -75,10 +76,11 @@ public class CategoriesFragment extends Fragment {
         loadData("");
     }
 
-  /*  @Override
+    @Override
     public void onResume() {
         super.onResume();
-    }*/
+        loadData("");
+    }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -123,7 +125,7 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onLoadFinished(Loader<List<CategoryEntity>> loader, List<CategoryEntity> data) {
 
-                adapter = new CategoriesAdapter(data, new CategoriesAdapter.CardViewHolder.ClickListener() {
+                adapter = new CategoriesAdapter(data,new CategoriesAdapter.CardViewHolder.ClickListener() {
 
                     @Override
                     public void onItemClicked(int position) {
@@ -159,12 +161,13 @@ public class CategoriesFragment extends Fragment {
     private void alertDialog() {
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog);
-        TextView textView = (TextView) dialog.findViewById(R.id.textView);
+        TextView textView = (TextView) dialog.findViewById(R.id.title);
         final EditText editText = (EditText) dialog.findViewById(R.id.edit_text);
         Button okButton = (Button) dialog.findViewById(R.id.btnApply);
         Button cancelButton = (Button) dialog.findViewById(R.id.btnCancel);
 
-        textView.setText(getString(R.string.nav_drawer_categories));
+        textView.setText(getString(R.string.add_category));
+
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

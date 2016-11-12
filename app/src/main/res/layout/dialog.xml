@@ -14,9 +14,10 @@
         />
 
     <EditText
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edit_text"
+        android:hint="@string/add_category_hint"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/title"
         />
@@ -30,17 +31,19 @@
         >
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnCancel"
             android:layout_weight="1"
+            android:background="@color/cancel"
             android:text="@string/btnCancel"
             />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnApply"
+            android:background="@color/apply"
             android:layout_weight="1"
             android:text="@string/btnApply"
             />

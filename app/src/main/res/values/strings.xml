@@ -48,7 +48,7 @@
     <string name="wrong_confirm">Пароли не одинаковые</string>
 
     <!--AddCategotyActivity-->
-    <string name="add_category_hint">Введите название категории</string>
+    <string name="add_category_hint">Имя новой категории</string>
     <string name="category_toast">Имя категории не может быть пустым</string>
 
     <!--Sync-->

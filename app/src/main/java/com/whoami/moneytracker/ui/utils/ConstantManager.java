@@ -14,7 +14,7 @@ public final class ConstantManager {
 
     public static final int ID = 1;
     public static final String SEARCH_QUERY_ID = "search_query_id";
-    public static final int DELAY = 300;
+    public static final int DELAY = 500;
 
     public static final String DateFormat = "dd.MM.yyyy";
     public static final int SPLASH_SCREEN_TIMEOUT = 2000;
@@ -36,6 +36,8 @@ public final class ConstantManager {
     public static final String AVATAR = "avatar";
     public static final String USER_NAME = "name";
     public static final String USER_EMALE = "email";
+
+    public static final int DELAY_SWIPETOREFRESH = 2000;
 
 
 }

@@ -31,4 +31,9 @@
         <item name="android:layout_marginBottom">6dp</item>
     </style>
 
+    <style name="DialogAnim">
+        <item name="android:windowEnterAnimation">@anim/enter_pull_in</item>
+        <item name="android:windowExitAnimation">@anim/push_out_left</item>
+    </style>
+
 </resources>

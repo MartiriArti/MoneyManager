@@ -57,6 +57,7 @@
     <string name="add_category">Добавить категорию</string>
     <string name="contextual_action_bar_title">Удаление</string>
     <string name="field_is_null">Имя не может быть null</string>
+    <string name="no_added_category">Создайте категории</string>
 
 
 </resources>

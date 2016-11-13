@@ -157,14 +157,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (CategoryEntity.selectAll("").size() == 0) {
-            addCategory("Еда");
-            addCategory("Развлечения");
-            addCategory("Спорт");
-            addCategory("Лекарства");
-            addCategory("Книги");
-            addCategory("Досуг");
-        }
         TrackerSyncAdapter.initializeSyncAdapter(this);
     }
 

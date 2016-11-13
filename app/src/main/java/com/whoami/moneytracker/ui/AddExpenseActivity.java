@@ -75,6 +75,12 @@ public class AddExpenseActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_fade_in, R.anim.exit_push_out);
+    }
+
     @Click(R.id.btnCancel)
     void btnCancelIsClicked() {
         back();

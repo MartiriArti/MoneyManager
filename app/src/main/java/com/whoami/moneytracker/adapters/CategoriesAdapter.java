@@ -42,27 +42,36 @@ public class CategoriesAdapter extends SelectableAdapter<CategoriesAdapter.CardV
         holder.selectedOverlay.setVisibility(isSelected(position) ? View.VISIBLE : View.INVISIBLE);
     }
 
-    public void removeItems(List<Integer> positions) {
+    private void removeItem(int position) {
+        removeCategories(position);
+        notifyItemRemoved(position);
+    }
 
+    private void removeCategories(int position) {
+        if (categories.get(position) != null) {
+            categories.get(position).delete();
+            categories.remove(position);
+
+        }
+    }
+
+    public void removeItems(List<Integer> positions) {
         Collections.sort(positions, new Comparator<Integer>() {
             @Override
             public int compare(Integer lhs, Integer rhs) {
                 return rhs - lhs;
             }
         });
-
         while (!positions.isEmpty()) {
-            removeItem(positions.get(0));
-            positions.remove(0);
-        }
-
-    }
-
-    public void removeItem(int position) {
-        if (categories.get(position) != null) {
-            categories.get(position).delete();
-            categories.remove(position);
-            notifyItemRemoved(position);
+            if (positions.size() == 1) {
+                removeItem(positions.get(0));
+                positions.remove(0);
+            } else {
+                for (int i = 0; i <= positions.size(); i++) {
+                    removeItem(positions.get(0));
+                    positions.remove(0);
+                }
+            }
         }
     }
 

@@ -1,22 +1,26 @@
 package com.whoami.moneytracker.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.ExpensesAdapter;
+import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.ui.AddExpenseActivity_;
 import com.whoami.moneytracker.ui.utils.ConstantManager;
@@ -49,11 +53,23 @@ public class ExpensesFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
 
+    @ViewById(R.id.swipe_layout_expenses)
+    SwipeRefreshLayout expenseSwipeRefreshLayout;
+
     @Click(R.id.expenses_fab)
     void fabClicked() {
-        Intent intent = new Intent(getActivity(), AddExpenseActivity_.class);
-        getActivity().startActivity(intent);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (CategoryEntity.selectAll("").size() != 0) {
+                    AddExpenseActivity_.intent(getActivity()).start()
+                            .withAnimation(R.anim.enter_pull_in, R.anim.exit_fade_out);
+                } else Snackbar.make(view, R.string.no_added_category, Snackbar.LENGTH_LONG).show();
+            }
+
+        });
     }
+
 
     @AfterViews
     void ready() {
@@ -73,6 +89,21 @@ public class ExpensesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadData("");
+        expenseSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
+                android.R.color.holo_blue_light,
+                android.R.color.holo_orange_light);
+        expenseSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData("");
+                    }
+                }, ConstantManager.DELAY_SWIPETOREFRESH);
+
+            }
+        });
     }
 
     @Override
@@ -95,7 +126,7 @@ public class ExpensesFragment extends Fragment {
         });
     }
 
-    @Background(delay = ConstantManager.DELAY, id = "1")
+    @Background(delay = ConstantManager.DELAY, id = ConstantManager.SEARCH_QUERY_ID)
     void delayedQuery(String filter) {
         loadData(filter);
     }
@@ -117,7 +148,7 @@ public class ExpensesFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<List<ExpenseEntity>> loader, List<ExpenseEntity> data) {
-
+                expenseSwipeRefreshLayout.setRefreshing(false);
                 adapter = new ExpensesAdapter(data, new ExpensesAdapter.CardViewHolder.ClickListener() {
                     @Override
                     public void onItemClicked(int position) {

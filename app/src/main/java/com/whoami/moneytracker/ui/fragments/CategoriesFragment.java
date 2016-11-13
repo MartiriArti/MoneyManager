@@ -2,11 +2,13 @@ package com.whoami.moneytracker.ui.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.adapters.CategoriesAdapter;
 import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.ui.utils.ClickListener;
+import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -57,6 +60,9 @@ public class CategoriesFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItemCategory;
 
+    @ViewById(R.id.swipe_layout_category)
+    SwipeRefreshLayout categorySwipeRefreshLayout;
+
     @Click(R.id.categories_fab)
     void fabClicked() {
         alertDialog();
@@ -79,7 +85,21 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadData("");
+        categorySwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
+                android.R.color.holo_blue_light,
+                android.R.color.holo_orange_light);
+        categorySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData("");
+                    }
+                }, ConstantManager.DELAY_SWIPETOREFRESH);
+
+            }
+        });
     }
 
     @Override
@@ -102,7 +122,7 @@ public class CategoriesFragment extends Fragment {
         });
     }
 
-    @Background(delay = 700, id = FILTER_ID)
+    @Background(delay = ConstantManager.DELAY, id = FILTER_ID)
     void delayedQueryCategory(String filter) {
         loadData(filter);
     }
@@ -124,7 +144,7 @@ public class CategoriesFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<List<CategoryEntity>> loader, List<CategoryEntity> data) {
-
+                categorySwipeRefreshLayout.setRefreshing(false);
                 adapter = new CategoriesAdapter(data,new CategoriesAdapter.CardViewHolder.ClickListener() {
 
                     @Override
@@ -161,6 +181,7 @@ public class CategoriesFragment extends Fragment {
     private void alertDialog() {
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog);
+        dialog.getWindow().getAttributes().windowAnimations =  R.style.DialogAnim;
         TextView textView = (TextView) dialog.findViewById(R.id.title);
         final EditText editText = (EditText) dialog.findViewById(R.id.edit_text);
         Button okButton = (Button) dialog.findViewById(R.id.btnApply);

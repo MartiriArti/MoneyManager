@@ -3,6 +3,7 @@ package com.whoami.moneytracker.database;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class ExpenseEntity extends Model {
     public String name;
     @Column(name = "date")
     public String date;
-    @Column(name = "category")
+    @Column(name = "category", onUpdate = Column.ForeignKeyAction.CASCADE, onDelete = Column.ForeignKeyAction.CASCADE)
     public CategoryEntity category;
     @Column(name = "sum")
     public String sum;
@@ -71,6 +72,12 @@ public class ExpenseEntity extends Model {
         return new Select().from(ExpenseEntity.class)
                 .where("id LIKE?", query)
                 .executeSingle();
+    }
+
+    public static void deleteItem(String id){
+        new Delete().from(ExpenseEntity.class)
+                .where("name = ?", new String[]{"%"+ id +"%"})
+                .execute();
     }
 
 }

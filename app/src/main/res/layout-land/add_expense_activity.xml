@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.AddExpenseActivity_">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_in_add_expense_land"
+        android:id="@+id/expense"
+        android:inputType="numberDecimal"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:hint="@string/add_expenses_editText_expense"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_in_add_expense_land"
+        android:layout_below="@+id/expense"
+        android:id="@+id/description"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:hint="@string/add_expenses_editText_description"
+        />
+
+    <Spinner
+        android:layout_marginTop="@dimen/margin_in_add_expense_land"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/categories"
+        android:layout_below="@+id/description"
+        android:layout_alignParentStart="true"
+        >
+    </Spinner>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_in_add_expense_land"
+        android:id="@+id/date"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:inputType="date"
+        android:layout_below="@+id/categories"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+
+        <Button
+            android:text="@string/btnCancel"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:background="@color/cancel"
+            />
+
+        <Button
+            android:text="@string/btnApply"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnApply"
+            android:background="@color/apply"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

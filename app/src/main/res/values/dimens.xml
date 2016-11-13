@@ -27,6 +27,7 @@
     <dimen name="distance_reg_activity">30dp</dimen>
     <dimen name="margin_top_reg_activity">50dp</dimen>
     <dimen name="margin_btn_reg_activity">150dp</dimen>
+    <dimen name="margin_in_add_expense_land">20dp</dimen>
 
 
 </resources>

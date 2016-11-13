@@ -2,4 +2,5 @@
 <resources>
     <string name="contextual_action_bar_title">Удаление</string>
     <string name="no_added_category">Создайте категории</string>
+    <string name="empty_expenses">Список трат пуст!</string>
 </resources>

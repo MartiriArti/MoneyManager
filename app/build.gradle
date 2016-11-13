@@ -39,5 +39,8 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 
+    compile 'com.github.bmarrdev:android-DecoView-charting:v1.2'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
     testCompile 'junit:junit:4.12'
 }

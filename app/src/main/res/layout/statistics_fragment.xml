@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/statistics_root_layout">
+    android:id="@+id/statistics_root_layout"
+    android:background="@mipmap/pattern_reg_activity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/statistics_splash"
-        android:gravity="center"
-        android:textSize="@dimen/statistics_fragment_splash_text_size"
-        android:text="@string/statistics_splash"/>
+    <com.hookedonplay.decoviewlib.DecoView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dynamicArcView"/>
 
 </LinearLayout>

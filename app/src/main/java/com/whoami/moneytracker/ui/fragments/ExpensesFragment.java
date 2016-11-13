@@ -164,15 +164,12 @@ public class ExpensesFragment extends Fragment {
                             AppCompatActivity activity = (AppCompatActivity) getActivity();
                             actionMode = activity.startSupportActionMode(actionModeCallback);
                         }
-
                         toggleSelection(position);
-
                         return true;
                     }
                 });
                 expensesRecycleView.setAdapter(adapter);
             }
-
             @Override
             public void onLoaderReset(Loader<List<ExpenseEntity>> loader) {
 

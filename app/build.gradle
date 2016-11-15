@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.whoami.moneytracker"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 24
         versionCode 2
         versionName "2.1"
@@ -41,6 +41,8 @@ dependencies {
 
     compile 'com.github.bmarrdev:android-DecoView-charting:v1.2'
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
+    compile 'com.android.support:preference-v7:24.2.1'
 
     testCompile 'junit:junit:4.12'
 }

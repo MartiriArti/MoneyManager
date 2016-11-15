@@ -22,19 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.whoami.moneytracker.MoneyManagerApplication;
 import com.whoami.moneytracker.R;
 import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.rest.RestService;
 import com.whoami.moneytracker.sync.TrackerSyncAdapter;
-import com.whoami.moneytracker.ui.fragments.CategoriesFragment;
 import com.whoami.moneytracker.ui.fragments.CategoriesFragment_;
-import com.whoami.moneytracker.ui.fragments.ExpensesFragment;
 import com.whoami.moneytracker.ui.fragments.ExpensesFragment_;
-import com.whoami.moneytracker.ui.fragments.SettingsFragment;
-import com.whoami.moneytracker.ui.fragments.StatisticsFragment;
+import com.whoami.moneytracker.ui.fragments.SettingsFragment_;
 import com.whoami.moneytracker.ui.fragments.StatisticsFragment_;
 
 import org.androidannotations.annotations.AfterViews;
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     void preLoad() {
         setActionBar();
         setDrawerLayout();
-           }
+    }
 
     private void setDrawerLayout() {
         onNavigationItemSelected();
@@ -107,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 RoundedBitmapDrawable circularBitmapDrawable =
                         RoundedBitmapDrawableFactory.create(context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
-                avatar.setImageDrawable(circularBitmapDrawable);}
+                avatar.setImageDrawable(circularBitmapDrawable);
+            }
         });
 
         TextView email = (TextView) headerView.findViewById(R.id.header_email);
@@ -169,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void addCategory(String name) {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(name);
@@ -210,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (fragmentClassName.equals(StatisticsFragment_.class.getName())) {
             setTitle(statisticsTitle);
             navigationView.setCheckedItem(R.id.drawer_statistics);
-        } else if (fragmentClassName.equals(SettingsFragment.class.getName())) {
+        } else if (fragmentClassName.equals(SettingsFragment_.class.getName())) {
             setTitle(settingsTitle);
             navigationView.setCheckedItem(R.id.drawer_settings);
         }
@@ -218,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("StatementWithEmptyBody")
     public void onNavigationItemSelected() {
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -236,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(new StatisticsFragment_());
                         break;
                     case R.id.drawer_settings:
-                        replaceFragment(new SettingsFragment());
+                        replaceFragment(new SettingsFragment_());
                         break;
                     case R.id.drawer_exit:
                         exit();

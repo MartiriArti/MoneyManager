@@ -88,7 +88,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     @Click(R.id.btnApply)
     void btnApplyIsClicked() {
-        if ((expense.getText().toString().equals("") & (description.getText().toString().equals("")))) {
+        if ((expense.getText().toString().equals("") || (description.getText().toString().equals("")))) {
             Toast.makeText(getApplicationContext(), R.string.add_expense_apply_not_write, Toast.LENGTH_SHORT).show();
         } else {
             btnApply.setEnabled(true);

@@ -30,7 +30,7 @@ import com.whoami.moneytracker.rest.RestService;
 import com.whoami.moneytracker.sync.TrackerSyncAdapter;
 import com.whoami.moneytracker.ui.fragments.CategoriesFragment_;
 import com.whoami.moneytracker.ui.fragments.ExpensesFragment_;
-import com.whoami.moneytracker.ui.fragments.SettingsFragment_;
+import com.whoami.moneytracker.ui.fragments.SettingsFragment;
 import com.whoami.moneytracker.ui.fragments.StatisticsFragment_;
 
 import org.androidannotations.annotations.AfterViews;
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (fragmentClassName.equals(StatisticsFragment_.class.getName())) {
             setTitle(statisticsTitle);
             navigationView.setCheckedItem(R.id.drawer_statistics);
-        } else if (fragmentClassName.equals(SettingsFragment_.class.getName())) {
+        } else if (fragmentClassName.equals(SettingsFragment.class.getName())) {
             setTitle(settingsTitle);
             navigationView.setCheckedItem(R.id.drawer_settings);
         }
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(new StatisticsFragment_());
                         break;
                     case R.id.drawer_settings:
-                        replaceFragment(new SettingsFragment_());
+                        replaceFragment(new SettingsFragment());
                         break;
                     case R.id.drawer_exit:
                         exit();

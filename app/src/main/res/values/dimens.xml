@@ -23,7 +23,7 @@
 
     <!--RegistrationActivity -->
     <dimen name="mini_logo_width">196dp</dimen>
-    <dimen name="mini_logo_padding">16dp</dimen>
+    <dimen name="mini_logo_padding">24dp</dimen>
 
     <dimen name="btn_width">150dp</dimen>
     <dimen name="linear_padding">16dp</dimen>
@@ -32,6 +32,12 @@
     <dimen name="margin_btn_reg_activity">150dp</dimen>
     <dimen name="margin_in_add_expense_land">20dp</dimen>
     <dimen name="button_margin_vertical">24dp</dimen>
+    <dimen name="reg_text_size">16sp</dimen>
+
+
+    <dimen name="buttons_min_width">64dp</dimen>
+    <dimen name="buttons_layout_height">36dp</dimen>
+    <dimen name="bottom_padding_add_expenses">8dp</dimen>
 
 
 </resources>

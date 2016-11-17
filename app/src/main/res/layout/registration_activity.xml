@@ -22,7 +22,8 @@
         android:src="@mipmap/money_manager"
         android:contentDescription="@string/logo_description"
         android:layout_centerHorizontal="true" />
-   </RelativeLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"

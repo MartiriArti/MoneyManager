@@ -61,8 +61,8 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private static void onAccountCreated(Account newAccount, Context context) {
-        final int SYNC_INTERVAL = 20;
-        final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
+        final int SYNC_INTERVAL = 60*60*24;
+        final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
         TrackerSyncAdapter.configurePeriodicSync(context, SYNC_INTERVAL, SYNC_FLEXTIME);
         ContentResolver.setSyncAutomatically(newAccount, context.getString(R.string.content_authority), true);
         ContentResolver.addPeriodicSync(newAccount, context.getString(R.string.content_authority), Bundle.EMPTY, SYNC_INTERVAL);
@@ -70,55 +70,57 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void syncCategories() {
-
-        restService = new RestService();
-        List<CategoryEntity> categoryEntityList = CategoryEntity.selectAll("");
-        List<CategoryModel> categoryModelsList = new ArrayList<>();
-
-        for (int i = 0; i < categoryEntityList.size(); i++) {
-            CategoryEntity categoryEntity = CategoryEntity.selectById(i);
-            CategoryModel categoryModel = new CategoryModel();
- //           String ctaName = categoryEntity.getName();
-            categoryModel.setId(i);
-  //          categoryModel.setTitle(ctaName);
-            categoryModelsList.add(categoryModel);
-        }
-        String gson = new Gson().toJson(categoryModelsList);
+        RestService restService = new RestService();
 
         try {
-            UserSyncCategoriesModel userSyncCategoriesModel = restService.userSyncCategoriesModel(gson,
-                    MoneyManagerApplication.getAuthToken(),
-                    MoneyManagerApplication.getGoogleAuthToken());
+            String googleToken = MoneyManagerApplication.getGoogleAuthToken();
+            String token = MoneyManagerApplication.getAuthToken();
+            List<CategoryModel> categoriesModelList = new ArrayList<>();
+
+            for (int i = 1; i <= CategoryEntity.selectAll("").size(); i++) {
+                CategoryEntity categoryEntity = CategoryEntity.selectById(i);
+                String name = categoryEntity.getName();
+                CategoryModel categoryModel = new CategoryModel();
+                categoryModel.setId(i);
+                categoryModel.setTitle(name);
+
+                categoriesModelList.add(categoryModel);
+            }
+
+            String data = new Gson().toJson(categoriesModelList);
+            UserSyncCategoriesModel categoriesSyncModel = restService.userSyncCategoriesModel(data, token, googleToken);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void syncExpenses() {
-        restService = new RestService();
-        List<ExpenseEntity> expensesEntityList = ExpenseEntity.selectAll("");
-        List<ExpensesModel> expensesModelsList = new ArrayList<>();
-        for (int i = 0; i < expensesEntityList.size(); i++) {
-            ExpenseEntity expenseEntity = ExpenseEntity.selectById(i);
-//            String sum = expenseEntity.getSum();
- //           String description = expenseEntity.getName();
- //           String date = expenseEntity.getDate();
-//
- //           ExpensesModel expensesModel = new ExpensesModel();
- //           expensesModel.setId(i);
-  //          expensesModel.setSum(sum);
-  //          expensesModel.setComment(description);
- //           expensesModel.setTrDate(date);
-            CategoryEntity categoryEntity = expenseEntity.getCategory();
-            int categoryId = (int) (long) categoryEntity.getId();
- //           expensesModel.setCategoryId(categoryId);
-//            expensesModelsList.add(expensesModel);
-        }
-        String gson = new Gson().toJson(expensesModelsList);
+        RestService restService = new RestService();
         try {
-            UserSyncExpensesModel userSyncExpensesModel = restService.userSyncExpensesModel(gson,
-                    MoneyManagerApplication.getAuthToken(),
-                    MoneyManagerApplication.getGoogleAuthToken());
+            String googleToken = MoneyManagerApplication.getGoogleAuthToken();
+            String token = MoneyManagerApplication.getAuthToken();
+            List<ExpensesModel> expensesModelList = new ArrayList<>();
+
+            for (int i = 1; i <= ExpenseEntity.selectAll("").size(); i++) {
+                ExpenseEntity expenseEntity = ExpenseEntity.selectById(i);
+                String description = expenseEntity.getName();
+                String price = expenseEntity.getSum();
+                String date = expenseEntity.getDate();
+
+                CategoryEntity categoryEntity = expenseEntity.getCategory();
+                int categoryId = (int) (long) categoryEntity.getId();
+
+                ExpensesModel expenseModel = new ExpensesModel();
+                expenseModel.setId(i);
+                expenseModel.setComment(description);
+                expenseModel.setSum(price);
+                expenseModel.setTrDate(date);
+                expenseModel.setCategoryId(categoryId);
+
+                expensesModelList.add(expenseModel);
+            }
+            String data = new Gson().toJson(expensesModelList);
+            UserSyncExpensesModel expensesSyncModel = restService.userSyncExpensesModel(data, token, googleToken);
         } catch (IOException e) {
             e.printStackTrace();
         }

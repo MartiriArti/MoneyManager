@@ -6,6 +6,7 @@
     tools:context=".ui.AddExpenseActivity_">
 
     <EditText
+        style="@style/AddExpenseEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_in_add_expense"
@@ -17,6 +18,7 @@
         />
 
     <EditText
+        style="@style/AddExpenseEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_in_add_expense"
@@ -38,6 +40,7 @@
     </Spinner>
 
     <EditText
+        style="@style/AddExpenseEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_in_add_expense"
@@ -51,26 +54,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/bottom_padding_add_expenses"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
 
         <Button
+            style="@style/AddExpenseButtons"
             android:text="@string/btnCancel"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnCancel"
-            android:background="@color/cancel"
             />
 
         <Button
+            style="@style/AddExpenseButtons"
             android:text="@string/btnApply"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnApply"
-            android:background="@color/apply"
             />
 
     </LinearLayout>

@@ -43,4 +43,49 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <style name="UserRegistrationEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/registration_text_size</item>
+        <item name="android:maxLength">10</item>
+        <item name="android:background">@color/back</item>
+        <item name="android:paddingTop">@dimen/edit_text_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/edit_text_padding_vertical</item>
+        <item name="android:paddingLeft">@dimen/edit_text_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/edit_text_padding_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/edit_text_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/edit_text_margin_vertical</item>
+    </style>
+
+    <style name="UserRegistrationButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/buttons_padding</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:textColor">@color/back</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/registration_text_size</item>
+    </style>
+
+    <style name="SignInButton" parent="UserRegistrationButton">
+        <item name="android:background">@drawable/button_sign_in_google</item>
+        <item name="android:paddingLeft">@dimen/default_layout_padding</item>
+        <item name="android:drawableLeft">@mipmap/ic_google_plus_white_24dp</item>
+    </style>
+
+    <style name="CheckBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">@dimen/check_text_size</item>
+        <item name="android:layout_marginTop">@dimen/check_box_margin_top</item>
+    </style>
+
+    <dimen name="registration_text_size">16sp</dimen>
+    <dimen name="edit_text_padding_vertical">8dp</dimen>
+    <dimen name="edit_text_padding_horizontal">6dp</dimen>
+    <dimen name="edit_text_margin_vertical">6dp</dimen>
+    <dimen name="buttons_padding">8dp</dimen>
+    <dimen name="check_text_size">14sp</dimen>
+    <dimen name="check_box_margin_top">24dp</dimen>
 </resources>

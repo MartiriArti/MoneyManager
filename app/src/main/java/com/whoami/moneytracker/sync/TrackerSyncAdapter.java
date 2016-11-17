@@ -100,19 +100,19 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
         List<ExpensesModel> expensesModelsList = new ArrayList<>();
         for (int i = 0; i < expensesEntityList.size(); i++) {
             ExpenseEntity expenseEntity = ExpenseEntity.selectById(i);
-            String sum = expenseEntity.getSum();
-            String description = expenseEntity.getName();
-            String date = expenseEntity.getDate();
-
-            ExpensesModel expensesModel = new ExpensesModel();
-            expensesModel.setId(i);
-            expensesModel.setSum(sum);
-            expensesModel.setComment(description);
-            expensesModel.setTrDate(date);
+//            String sum = expenseEntity.getSum();
+ //           String description = expenseEntity.getName();
+ //           String date = expenseEntity.getDate();
+//
+ //           ExpensesModel expensesModel = new ExpensesModel();
+ //           expensesModel.setId(i);
+  //          expensesModel.setSum(sum);
+  //          expensesModel.setComment(description);
+ //           expensesModel.setTrDate(date);
             CategoryEntity categoryEntity = expenseEntity.getCategory();
             int categoryId = (int) (long) categoryEntity.getId();
-            expensesModel.setCategoryId(categoryId);
-            expensesModelsList.add(expensesModel);
+ //           expensesModel.setCategoryId(categoryId);
+//            expensesModelsList.add(expensesModel);
         }
         String gson = new Gson().toJson(expensesModelsList);
         try {

@@ -22,12 +22,16 @@
     <dimen name="splash_text_size">40sp</dimen>
 
     <!--RegistrationActivity -->
+    <dimen name="mini_logo_width">196dp</dimen>
+    <dimen name="mini_logo_padding">16dp</dimen>
+
     <dimen name="btn_width">150dp</dimen>
     <dimen name="linear_padding">16dp</dimen>
     <dimen name="distance_reg_activity">30dp</dimen>
     <dimen name="margin_top_reg_activity">50dp</dimen>
     <dimen name="margin_btn_reg_activity">150dp</dimen>
     <dimen name="margin_in_add_expense_land">20dp</dimen>
+    <dimen name="button_margin_vertical">24dp</dimen>
 
 
 </resources>

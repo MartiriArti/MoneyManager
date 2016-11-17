@@ -21,7 +21,6 @@ import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
-import com.google.android.gms.common.SignInButton;
 import com.whoami.moneytracker.BuildConfig;
 import com.whoami.moneytracker.MoneyManagerApplication;
 import com.whoami.moneytracker.R;
@@ -55,8 +54,8 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText confirm_pass;
     @ViewById(R.id.registration_btn)
     Button registration;
-    @ViewById(R.id.login_google)
-    SignInButton login_google_btn;
+    @ViewById(R.id.login_google_btn)
+    Button login_google_btn;
     @ViewById(R.id.no_reg_CB)
     CheckBox noRegCB;
 
@@ -188,7 +187,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     confirm_pass.setVisibility(View.VISIBLE);
                     registration.setText(getString(R.string.registration));
                 } else {
-                    confirm_pass.setVisibility(View.INVISIBLE);
+                    confirm_pass.setVisibility(View.GONE);
                     registration.setText(getString(R.string.login_activity_btn));
                 }
 

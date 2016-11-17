@@ -4,67 +4,72 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_vertical_margin"
-    android:background="@mipmap/pattern_reg_activity"
+    android:background="@color/colorPrimaryDark"
     android:id="@+id/registration_layout_root">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/default_layout_padding"
+        android:paddingRight="@dimen/default_layout_padding"
+        android:id="@+id/logo_layout">
+
+    <ImageView
+        android:layout_width="@dimen/mini_logo_width"
+        android:layout_height="@dimen/mini_logo_width"
+        android:padding="@dimen/mini_logo_padding"
+        android:focusable="false"
+        android:src="@mipmap/money_manager"
+        android:contentDescription="@string/logo_description"
+        android:layout_centerHorizontal="true" />
+   </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/default_layout_padding"
+        android:paddingRight="@dimen/default_layout_padding">
+
         <EditText
-            android:background="@color/back"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="10"
+            style="@style/UserRegistrationEditText"
             android:hint="@string/enter_login"
-            android:layout_margin="@dimen/activity_horizontal_margin"
             android:id="@+id/enter_login"/>
 
         <EditText
-            android:background="@color/back"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            style="@style/UserRegistrationEditText"
         android:inputType="textPassword"
-        android:maxLength="10"
         android:hint="@string/enter_password"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:id="@+id/enter_password"/>
 
         <EditText
-            android:background="@color/back"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/UserRegistrationEditText"
             android:inputType="textPassword"
-            android:maxLength="10"
             android:hint="@string/confirm_password"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:id="@+id/confirm_password"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/back"
-        android:background="@color/apply"
+        style="@style/UserRegistrationButton"
         android:text="@string/login_activity_btn"
         android:id="@+id/registration_btn"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        tools:ignore="ButtonStyle" />
+        tools:ignore="ButtonStyle"/>
 
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_google"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:layout_gravity="center">
-    </com.google.android.gms.common.SignInButton>
+        <Button
+            android:id="@+id/login_google_btn"
+            style="@style/SignInButton"
+            android:text="@string/registration_sign_up"
+            android:textAllCaps="false"
+            tools:ignore="ButtonStyle" />
 
         <CheckBox
-            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center"
+            style="@style/CheckBox"
             android:id="@+id/no_reg_CB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/no_reg_text"
             />
 
+        </LinearLayout>
 </LinearLayout>

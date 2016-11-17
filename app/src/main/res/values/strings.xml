@@ -29,7 +29,7 @@
     <string name="search_title">Поиск</string>
 
     <!--RegistrationActivity-->
-    <string name="registration_sign_up">Подключиться c G+</string>
+    <string name="registration_sign_up">Войти через аккаунт Google</string>
     <string name="registration">Регистрация</string>
     <string name="registration_login">Логин</string>
     <string name="registration_password">Пароль</string>
@@ -81,5 +81,6 @@
     <string name="pref_enable_indicator_label">Индикатор</string>
 
     <string name="pref_splash_screen">Заставка</string>
+    <string name="logo_description">appLogo</string>
 
 </resources>

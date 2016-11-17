@@ -8,4 +8,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="windowActionModeOverlay">true</item>
     </style>
+
+    <dimen name="registration_text_size">16sp</dimen>
 </resources>

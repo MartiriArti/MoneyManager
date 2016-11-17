@@ -15,7 +15,7 @@ public class UserCategoriesModel {
     @SerializedName("data")
     @Expose
     private List<CategoryEntity> data = new ArrayList<CategoryEntity>();
-    
+
     public String getStatus() {
         return status;
     }

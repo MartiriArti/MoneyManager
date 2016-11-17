@@ -12,38 +12,18 @@ public class UserBalanceModel {
     @Expose
     private String balance;
 
-    /**
-     *
-     * @return
-     * The status
-     */
     public String getStatus() {
         return status;
     }
 
-    /**
-     *
-     * @param status
-     * The status
-     */
     public void setStatus(String status) {
         this.status = status;
     }
 
-    /**
-     *
-     * @return
-     * The balance
-     */
     public String getBalance() {
         return balance;
     }
 
-    /**
-     *
-     * @param balance
-     * The balance
-     */
     public void setBalance(String balance) {
         this.balance = balance;
     }

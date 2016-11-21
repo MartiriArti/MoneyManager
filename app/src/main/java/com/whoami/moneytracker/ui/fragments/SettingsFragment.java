@@ -78,12 +78,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
             int preferenceIndex = listPreference.findIndexOfValue(value);
             if (preferenceIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[preferenceIndex]);
-                return true;
             }
         } else {
             preference.setSummary(value);
-            return true;
         }
-        return false;
+        return true;
     }
 }

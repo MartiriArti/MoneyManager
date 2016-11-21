@@ -83,4 +83,7 @@
     <string name="pref_splash_screen">Заставка</string>
     <string name="logo_description">appLogo</string>
 
+    <string name="pref_enable_foreground_notifications_key" translatable="false">enable_foreground_notifications</string>
+    <string name="pref_enable_foreground_notifications_label">Foreground</string>
+
 </resources>

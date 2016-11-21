@@ -1,6 +1,5 @@
 package com.whoami.moneytracker.rest;
 
-
 import com.whoami.moneytracker.ui.utils.ConstantManager;
 
 import okhttp3.OkHttpClient;

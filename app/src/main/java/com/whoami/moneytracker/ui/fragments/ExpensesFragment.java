@@ -24,6 +24,7 @@ import com.whoami.moneytracker.database.CategoryEntity;
 import com.whoami.moneytracker.database.ExpenseEntity;
 import com.whoami.moneytracker.ui.AddExpenseActivity_;
 import com.whoami.moneytracker.ui.utils.ConstantManager;
+import com.whoami.moneytracker.ui.utils.NotifyUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -141,7 +142,6 @@ public class ExpensesFragment extends Fragment {
                         return ExpenseEntity.selectAll(filter);
                     }
                 };
-
                 loader.forceLoad();
                 return loader;
             }

@@ -12,7 +12,7 @@ public final class ConstantManager {
     public static final String REGISTER_FLAG = "1";
     public static final String BASE_URL = "http://lmt.loftblog.tmweb.ru";
 
-    public static final int ID = 1;
+    public static final int NOTIFICATION_ID = 1;
     public static final String SEARCH_QUERY_ID = "search_query_id";
     public static final int DELAY = 500;
 

@@ -32,6 +32,10 @@
         </service>
 
         <service
+            android:name=".ui.utils.ServiceSample"
+            android:enabled="true"/>
+
+        <service
             android:name=".sync.TrackerSyncService"
             android:exported="true">
             <intent-filter>

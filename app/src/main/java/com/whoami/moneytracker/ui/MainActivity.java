@@ -1,9 +1,12 @@
 package com.whoami.moneytracker.ui;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +19,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,7 +46,6 @@ import org.androidannotations.annotations.res.StringRes;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
-
 
     @ViewById(R.id.drawer_layout)
     DrawerLayout drawer;

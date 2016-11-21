@@ -21,6 +21,7 @@ import com.whoami.moneytracker.sync.models.CategoryModel;
 import com.whoami.moneytracker.sync.models.ExpensesModel;
 import com.whoami.moneytracker.sync.models.UserSyncCategoriesModel;
 import com.whoami.moneytracker.sync.models.UserSyncExpensesModel;
+import com.whoami.moneytracker.ui.utils.NotifyUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
 
     RestService restService;
 
+    private boolean categorySynchronized = false;
+    private boolean expensesSynchronized = false;
+
     TrackerSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
@@ -38,6 +42,10 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         syncCategories();
         syncExpenses();
+
+        if(categorySynchronized || expensesSynchronized)
+            NotifyUtil.updateNotifications(getContext());
+
     }
 
     private static void syncImmediately(Context context) {
@@ -61,8 +69,8 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private static void onAccountCreated(Account newAccount, Context context) {
-        final int SYNC_INTERVAL = 60*60*24;
-        final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
+        final int SYNC_INTERVAL = 60 * 60 * 24;
+        final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
         TrackerSyncAdapter.configurePeriodicSync(context, SYNC_INTERVAL, SYNC_FLEXTIME);
         ContentResolver.setSyncAutomatically(newAccount, context.getString(R.string.content_authority), true);
         ContentResolver.addPeriodicSync(newAccount, context.getString(R.string.content_authority), Bundle.EMPTY, SYNC_INTERVAL);
@@ -70,6 +78,7 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void syncCategories() {
+        categorySynchronized = true;
         RestService restService = new RestService();
 
         try {
@@ -95,6 +104,8 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void syncExpenses() {
+        expensesSynchronized = true;
+         NotifyUtil.updateNotifications(getContext());
         RestService restService = new RestService();
         try {
             String googleToken = MoneyManagerApplication.getGoogleAuthToken();

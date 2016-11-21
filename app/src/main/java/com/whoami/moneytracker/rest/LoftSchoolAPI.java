@@ -66,5 +66,4 @@ public interface LoftSchoolAPI {
                                 @Query("google_token") String gToken,
                                 @Query("auth_token") String token);
 
-
 }
